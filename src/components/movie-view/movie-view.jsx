@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+let imgPath = './img/';
 
 // This is temporary. Remove this as soon as you add an external style sheet.
 let tempHeightStyle = {
@@ -8,12 +9,13 @@ let tempHeightStyle = {
 };
 
 export class MovieView extends React.Component {
+
   render() {
     const { movie, onBackClick } = this.props;
     return (
       <div className='movie-view'>
         <div className="movie-poster">
-          <img src={movie.ImagePath} style={tempHeightStyle} />
+          <img src={imgPath + movie.ImagePath} style={tempHeightStyle} />
         </div>
         <div className="movie-title">
           <span className="label">Title: </span>
