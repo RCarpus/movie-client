@@ -5,6 +5,9 @@ Movie client uses [Parcel](https://parceljs.org/docs/) to transpile JSX into Jav
 To start the build tools, run the command `npx parcel src/index.html` in the powershell terminal. The project will be hosted at localhost:1234 and will have live-reload enabled.
 ## Framework
 This app uses [React](https://reactjs.org/docs/getting-started.html) as a framework to display all views in a single page.
+## Packages
+Ajax operations are performed using [Axios](https://axios-http.com/docs/intro), a promise-based HTTP client for nodejs and the browser.  
+Type checking at runtime is performed using [prop-types](https://www.npmjs.com/package/prop-types). With prop-types, the intended types of properties passed to React components is checked against properties recieved and displays errors in the console if there are any issues.
 ### Views
 | View | Description |
 | --- | --- |
