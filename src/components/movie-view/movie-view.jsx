@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 
 // This is temporary. Remove this as soon as you add an external style sheet.
 let tempHeightStyle = {
@@ -34,3 +36,26 @@ export class MovieView extends React.Component {
     );
   }
 }
+
+// prop-types
+// Give informational warnings in browser if data does not match required shape
+MovieView.propTypes = {
+  movie: PropTypes.shape({
+    Title: PropTypes.string.isRequired,
+    Description: PropTypes.string.isRequired,
+    Featured: PropTypes.bool.isRequired,
+    ImagePath: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
+    Genre: PropTypes.shape({
+      Name: PropTypes.string.isRequired,
+      Description: PropTypes.string.isRequired
+    }).isRequired,
+    Director: PropTypes.shape({
+      Name: PropTypes.string.isRequired,
+      Bio: PropTypes.string.isRequired,
+      BirthYear: PropTypes.number.isRequired,
+      DeathYear: PropTypes.number
+    })
+  }).isRequired,
+  onBackClick: PropTypes.func.isRequired
+};
