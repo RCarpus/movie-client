@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 
-.login-view {
+.registration-view {
   display: block;
   width: 100%;
   margin: 0 auto;
@@ -12,28 +12,33 @@
   padding: 50px;
 }
 
-.login-form {
+.registration-form {
   display: block;
-  max-width: 280px;
+  max-width: 650px;
   margin: 0 auto;
   line-height: 2em;
 }
 
-.login-form__line {
-  display: block;
+.registration-form__line {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
-.login-form__line__label {
+.registration-form__line__label {
   display: inline;
 }
 
-.login-form__line__input-field {
+.registration-form__line__input-field {
   display: inline;
   width: 200px;
-  float: right;
+  // float: right;
 }
 
-.login-form__login-button {
+.registration-form__label-tips {
+
+}
+
+.registration-form__login-button {
   display: block;
   margin: 0 auto;
 }
