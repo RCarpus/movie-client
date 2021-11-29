@@ -1,15 +1,7 @@
-$color: steelblue;
+$color1: rgb(230, 230, 230);
 
-body {
-  background-color: rgb(240, 238, 238);
-  max-width: 1400px;
-  display: block;
-  margin: 15px auto;
-}
-
-h1 {
-  display: block;
-  max-width: 50%;
-  text-align: center;
-  margin: auto;
+$body-bg: black;
+html body {
+  background-color: $color1;
+  margin: 10px;
 }

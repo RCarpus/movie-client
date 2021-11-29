@@ -8,7 +8,7 @@
 img {
   display: block;
   max-width: 100%;
-  max-height: 500px;
+  max-height: 700px;
   height: auto;
   margin: 20px auto;
 }
@@ -26,14 +26,8 @@ img {
 
 
 .movie-view__title-line {
-  display: block;
-  text-align: left;
   font-size: 28px;
   font-weight: 600;
-}
-
-.movie-view__line {
-  display: block;
 }
 
 .movie-view__line__label {
@@ -44,30 +38,8 @@ img {
   font-size: 18px;
 }
 
-.movie-view__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
 
-.movie-info {
-  display: grid;
-  grid-template-rows: 50px 50px 4fr;
-}
 
 .description {
-  padding-top: 3em;
-}
-
-@media (max-width:700px) {
-  .movie-view__grid {
-    display: block;
-  }
-
-  .description {
-    padding-top: 1em;
-  }
-
-  .movie-view__title-line {
-    font-size: 20px;
-  }
+  padding-top: 3em; 
 }
