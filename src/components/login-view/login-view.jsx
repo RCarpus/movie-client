@@ -30,7 +30,7 @@ export function LoginView(props) {
           <label className="login-form__line__label">
             Username:
           </label >
-            <input class="login-form__line__input-field" type="text" value={username} onChange={e => setUsername(e.target.value)} />
+            <input className="login-form__line__input-field" type="text" value={username} onChange={e => setUsername(e.target.value)} />
         </div>
 
         <div className="login-form__line">

@@ -19,16 +19,16 @@ export function RegistrationView(props) {
   };
 
   return (
-    <div class="registration-view">
+    <div className="registration-view">
       <h2>Sign up for a free MyFlix account:</h2>
 
       <form className="registration-form">
 
-        <div class="registration-form__line">
+        <div className="registration-form__line">
           <label className="registration-form__line-label">
             Username: 
           </label>
-            <input class="registration-form__line__input-field" type="text" value={username} onChange={e => setUsername(e.target.value)} />
+            <input className="registration-form__line__input-field" type="text" value={username} onChange={e => setUsername(e.target.value)} />
             <span className="registration-form__label-tips">5+ characters, no spaces</span>
         </div>
         
@@ -36,31 +36,31 @@ export function RegistrationView(props) {
           <label className="registration-form__line-label">
             Enter desired password: 
           </label>
-            <input class="registration-form__line__input-field" type="text" value={password1} onChange={e => setPassword1(e.target.value)} />
+            <input className="registration-form__line__input-field" type="text" value={password1} onChange={e => setPassword1(e.target.value)} />
             <span className="registration-form__label-tips">must not be blank</span>
         </div>
         
-        <div class="registration-form__line">
+        <div className="registration-form__line">
           <label className="registration-form__line-label">
             Re-enter password:
           </label>
-            <input class="registration-form__line__input-field" type="text" value={password2} onChange={e => setPassword2(e.target.value)} />
+            <input className="registration-form__line__input-field" type="text" value={password2} onChange={e => setPassword2(e.target.value)} />
             <span className="registration-form__label-tips">passwords must match</span>
         </div>
         
-        <div class="registration-form__line">
+        <div className="registration-form__line">
           <label className="registration-form__line-label">
             Email: 
           </label>
-            <input class="registration-form__line__input-field" type="text" value={email} onChange={e => setEmail(e.target.value)} />
+            <input className="registration-form__line__input-field" type="text" value={email} onChange={e => setEmail(e.target.value)} />
             <span className="registration-form__label-tips">required</span>
         </div>
         
-        <div class="registration-form__line">
+        <div className="registration-form__line">
           <label class="registration-form__line-label" className="registration-form__line">
             Birthday: 
           </label>
-            <input class="registration-form__line__input-field" type="text" value={birthday} onChange={e => setBirthday(e.target.value)} />
+            <input className="registration-form__line__input-field" type="text" value={birthday} onChange={e => setBirthday(e.target.value)} />
             <span className="registration-form__label-tips">optional</span>
         </div>
         
