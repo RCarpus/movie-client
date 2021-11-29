@@ -16,24 +16,21 @@
   display: block;
   max-width: 280px;
   margin: 0 auto;
-  line-height: 2em;
+  // line-height: 2em;
 }
 
 .login-form__line {
-  display: block;
+  // display: block;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
-.login-form__line__label {
-  display: inline;
-}
+@media (max-width:350px) {
+  .login-form__line {
+    display: block;
+  }
 
-.login-form__line__input-field {
-  display: inline;
-  width: 200px;
-  float: right;
-}
-
-.login-form__login-button {
-  display: block;
-  margin: 0 auto;
+  .login-form__line__input-field {
+    display: block;
+  }
 }

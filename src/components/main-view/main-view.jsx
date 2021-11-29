@@ -6,6 +6,8 @@ import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { LogoutButton } from '../logout-button/logout-button';
 
+import './main-view.scss';
+
 export default class MainView extends React.Component {
 
   constructor() {
@@ -60,7 +62,8 @@ export default class MainView extends React.Component {
   // LOOK FOR A WAY TO REFACTOR THIS
   logoutUser(uselessParam) {
     this.setState({
-      user: false
+      user: false,
+      selectedMovie: null
     });
   }
 
@@ -100,7 +103,7 @@ export default class MainView extends React.Component {
               {movies.map(movie => <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie) }} />)}
             </div>)
         }
-      </div>
+      </div>  
     );
   }
 }
