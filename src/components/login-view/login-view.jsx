@@ -37,12 +37,12 @@ export function LoginView(props) {
           <label className="login-form__line__label">
             Password:
           </label>
-          <input class="login-form__line__input-field" type="text" value={password} onChange={e => setPassword(e.target.value)} />        
+          <input className="login-form__line__input-field" type="text" value={password} onChange={e => setPassword(e.target.value)} />        
         </div>
 
-        <button class="login-form__login-button" type="submit" onClick={handleSubmit}>Log in</button>
+        <button className="login-form__login-button" type="submit" onClick={handleSubmit}>Log in</button>
       
-      </form>
+      </form> 
 
       <div>
         <span>Don't have an account? </span>
