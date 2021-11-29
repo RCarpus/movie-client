@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import './login-view.scss';
 
@@ -22,32 +26,56 @@ export function LoginView(props) {
 
   return (
     <div className="login-view">
-      <h2>Login to myFlix</h2>
+      <Row>
+        <Col>
+          <h2 className="display-4">Login to MyFlix</h2>
+        </Col>
+      </Row>
 
-      <form className="login-form">
+      <Form className="login-form">
+        <Form.Group controlId="formUsername">
+          <Row className="login-view__line">
+            <Col sm={0} md={3}></Col>
+            <Col sm={12} md={2}>
+              <Form.Label>Username:</Form.Label>
+            </Col>
+            <Col sm={12} md={4}>
+              <Form.Control type="text" onChange={e => setUsername(e.target.value)} />
+            </Col>
+          </Row>
+        </Form.Group>
 
-        <div className="login-form__line">
-          <label className="login-form__line__label">
-            Username:
-          </label >
-            <input className="login-form__line__input-field" type="text" value={username} onChange={e => setUsername(e.target.value)} />
-        </div>
+        <Form.Group controlId="formPassword">
+          <Row className="login-view__line">
+            <Col sm={0} md={3}></Col>
+            <Col sm={12} md={2}>
+              <Form.Label>Password:</Form.Label>
+            </Col>
+            <Col sm={12} md={4}>
+              <Form.Control type="text" onChange={e => setPassword(e.target.value)} />
+            </Col>
+          </Row>
+        </Form.Group>
 
-        <div className="login-form__line">
-          <label className="login-form__line__label">
-            Password:
-          </label>
-          <input className="login-form__line__input-field" type="text" value={password} onChange={e => setPassword(e.target.value)} />        
-        </div>
+        <Row className="login-view__line">
+          <Col md={8}></Col>
+          <Col >
+            <Button variant="primary" type="submit" onClick={handleSubmit}>
+              Log in
+            </Button>
+          </Col>
+        </Row>
 
-        <button className="login-form__login-button" type="submit" onClick={handleSubmit}>Log in</button>
-      
-      </form> 
+      </Form>
 
-      <div>
-        <span>Don't have an account? </span>
-        <button type="submit" onClick={handleClickRegister}>Register</button>
-      </div>
+      <Row className="register-row">
+        <Col md={3}>
+          <p>Don't have an account? </p>
+        </Col>
+        <Col>
+        <Button variant="secondary" type="submit" onClick={handleClickRegister}>Register</Button>
+        </Col>
+      </Row>
     </div>
   )
 }

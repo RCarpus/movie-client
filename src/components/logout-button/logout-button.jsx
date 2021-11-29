@@ -11,7 +11,7 @@ export function LogoutButton(props) {
   }
 
   return (
-    <button className="logout-button" type="submit" onClick={handleLogout}>Logout</button>
+    <button className="btn btn-link float-sm-right" type="button" onClick={handleLogout}>Logout</button>
   );
 }
 

@@ -1,36 +1,33 @@
-* {
-  box-sizing: border-box;
-}
-
 .login-view {
-  display: block;
-  width: 100%;
-  margin: 0 auto;
+  // display: block;
+  // width: 100%;
+  // margin: 0 auto;
   background-color: white;
   border: solid black 2px;
   border-radius: 15px;
   padding: 50px;
 }
 
-.login-form {
-  display: block;
-  max-width: 280px;
-  margin: 0 auto;
-  // line-height: 2em;
+.register-row {
+  margin-top: 50px;
 }
 
-.login-form__line {
-  // display: block;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.login-view__line {
+  margin-top: 10px;
 }
 
-@media (max-width:350px) {
-  .login-form__line {
-    display: block;
+@media (min-width: 768px) {
+  .login-form {
+    margin-top: 100px;
+  }
+  .register-row {
+    margin-top: 100px;
   }
 
-  .login-form__line__input-field {
-    display: block;
+}
+
+@media (max-width: 768px) {
+  .login-view {
+    padding: 5px;
   }
 }
