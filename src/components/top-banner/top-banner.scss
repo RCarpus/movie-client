@@ -1,0 +1,23 @@
+.banner {
+  background-color: orange;
+  margin-top: -10px;
+  margin-bottom: 15px;
+  box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.gridbox {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  width: 100%;
+}
+
+#logo {
+  padding: 20px;
+}
+
+#title {
+  width: 100%;
+  font-size: 50px;
+  padding-top: 25px;
+  text-align: center;
+}

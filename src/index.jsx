@@ -1,14 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Container from 'react-bootstrap/Container';
 
 // Import statement to indicate that I need to bundle './index.scss'
 import './index.scss';
 import MainView from './components/main-view/main-view';
+import { TopBanner } from './components/top-banner/top-banner';
+
 
 // Main component (will eventually use all the others)
 class MyFlixApplication extends React.Component {
   render() {
-    return <MainView/>
+    return (
+      <div>
+        <TopBanner /> 
+        <Container >  
+          <MainView />
+        </Container>
+    </div>
+    );
   }
 }
 
