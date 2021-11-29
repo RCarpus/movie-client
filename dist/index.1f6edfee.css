@@ -1,4 +1,190 @@
-.my-flix {
-  color: steelblue;
+body {
+  background-color: #f0eeee;
+  max-width: 1400px;
+  display: block;
+  margin: 15px auto;
 }
+
+h1 {
+  display: block;
+  max-width: 50%;
+  text-align: center;
+  margin: auto;
+}
+.movie-card {
+  max-width: 300px;
+  border: 3px solid black;
+  border-radius: 15px;
+  box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.5);
+  color: black;
+  background-color: #f0f0f0;
+  line-height: 2em;
+  margin: 20px auto;
+  padding: 5px;
+}
+
+.movie-card:hover {
+  background-color: #e7e7e7;
+  cursor: pointer;
+}
+.movie-view {
+  border: 2px solid black;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.5);
+  background-color: white;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  max-height: 500px;
+  height: auto;
+  margin: 20px auto;
+}
+
+.movie-view-button {
+  font-size: 30px;
+  background-color: white;
+  border: none;
+  margin: 15px;
+}
+
+.movie-view-button:hover {
+  cursor: pointer;
+}
+
+.movie-view__title-line {
+  display: block;
+  text-align: left;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.movie-view__line {
+  display: block;
+}
+
+.movie-view__line__label {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.movie-view__line__value {
+  font-size: 18px;
+}
+
+.movie-view__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.movie-info {
+  display: grid;
+  grid-template-rows: 50px 50px 4fr;
+}
+
+.description {
+  padding-top: 3em;
+}
+
+@media (max-width: 700px) {
+  .movie-view__grid {
+    display: block;
+  }
+
+  .description {
+    padding-top: 1em;
+  }
+
+  .movie-view__title-line {
+    font-size: 20px;
+  }
+}
+* {
+  box-sizing: border-box;
+}
+
+.login-view {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  background-color: white;
+  border: solid black 2px;
+  border-radius: 15px;
+  padding: 50px;
+}
+
+.login-form {
+  display: block;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+.login-form__line {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 350px) {
+  .login-form__line {
+    display: block;
+  }
+
+  .login-form__line__input-field {
+    display: block;
+  }
+}
+* {
+  box-sizing: border-box;
+}
+
+.registration-view {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  background-color: white;
+  border: solid black 2px;
+  border-radius: 15px;
+  padding: 50px;
+}
+
+.registration-form {
+  display: block;
+  max-width: 650px;
+  margin: 0 auto;
+  line-height: 2em;
+}
+
+.registration-form__line {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.registration-form__line__label {
+  display: inline;
+}
+
+.registration-form__line__input-field {
+  display: inline;
+  width: 200px;
+}
+
+.registration-form__login-button {
+  display: block;
+  margin: 0 auto;
+}
+
+@media (max-width: 700px) {
+  .registration-form__line {
+    display: block;
+  }
+
+  .registration-form__line__input-field {
+    display: block;
+  }
+}
+.logout-button {
+  float: right;
+}
+
 /*# sourceMappingURL=index.1f6edfee.css.map */
