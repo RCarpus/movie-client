@@ -25694,7 +25694,7 @@ function LoginView(props) {
                                 children: "Username:"
                             }),
                             /*#__PURE__*/ _jsxRuntime.jsx("input", {
-                                class: "login-form__line__input-field",
+                                className: "login-form__line__input-field",
                                 type: "text",
                                 value: username,
                                 onChange: (e)=>setUsername(e.target.value)
@@ -25838,7 +25838,7 @@ function RegistrationView(props) {
         props.onRegister(true, username);
     };
     return(/*#__PURE__*/ _jsxRuntime.jsxs("div", {
-        class: "registration-view",
+        className: "registration-view",
         __source: {
             fileName: "src/components/registration-view/registration-view.jsx",
             lineNumber: 22,
@@ -25865,7 +25865,7 @@ function RegistrationView(props) {
                 __self: this,
                 children: [
                     /*#__PURE__*/ _jsxRuntime.jsxs("div", {
-                        class: "registration-form__line",
+                        className: "registration-form__line",
                         __source: {
                             fileName: "src/components/registration-view/registration-view.jsx",
                             lineNumber: 27,
@@ -25884,7 +25884,7 @@ function RegistrationView(props) {
                                 children: "Username:"
                             }),
                             /*#__PURE__*/ _jsxRuntime.jsx("input", {
-                                class: "registration-form__line__input-field",
+                                className: "registration-form__line__input-field",
                                 type: "text",
                                 value: username,
                                 onChange: (e)=>setUsername(e.target.value)
@@ -25928,7 +25928,7 @@ function RegistrationView(props) {
                                 children: "Enter desired password:"
                             }),
                             /*#__PURE__*/ _jsxRuntime.jsx("input", {
-                                class: "registration-form__line__input-field",
+                                className: "registration-form__line__input-field",
                                 type: "text",
                                 value: password1,
                                 onChange: (e)=>setPassword1(e.target.value)
@@ -25953,7 +25953,7 @@ function RegistrationView(props) {
                         ]
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsxs("div", {
-                        class: "registration-form__line",
+                        className: "registration-form__line",
                         __source: {
                             fileName: "src/components/registration-view/registration-view.jsx",
                             lineNumber: 43,
@@ -25972,7 +25972,7 @@ function RegistrationView(props) {
                                 children: "Re-enter password:"
                             }),
                             /*#__PURE__*/ _jsxRuntime.jsx("input", {
-                                class: "registration-form__line__input-field",
+                                className: "registration-form__line__input-field",
                                 type: "text",
                                 value: password2,
                                 onChange: (e)=>setPassword2(e.target.value)
@@ -25997,7 +25997,7 @@ function RegistrationView(props) {
                         ]
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsxs("div", {
-                        class: "registration-form__line",
+                        className: "registration-form__line",
                         __source: {
                             fileName: "src/components/registration-view/registration-view.jsx",
                             lineNumber: 51,
@@ -26016,7 +26016,7 @@ function RegistrationView(props) {
                                 children: "Email:"
                             }),
                             /*#__PURE__*/ _jsxRuntime.jsx("input", {
-                                class: "registration-form__line__input-field",
+                                className: "registration-form__line__input-field",
                                 type: "text",
                                 value: email,
                                 onChange: (e)=>setEmail(e.target.value)
@@ -26041,7 +26041,7 @@ function RegistrationView(props) {
                         ]
                     }),
                     /*#__PURE__*/ _jsxRuntime.jsxs("div", {
-                        class: "registration-form__line",
+                        className: "registration-form__line",
                         __source: {
                             fileName: "src/components/registration-view/registration-view.jsx",
                             lineNumber: 59,
@@ -26061,7 +26061,7 @@ function RegistrationView(props) {
                                 children: "Birthday:"
                             }),
                             /*#__PURE__*/ _jsxRuntime.jsx("input", {
-                                class: "registration-form__line__input-field",
+                                className: "registration-form__line__input-field",
                                 type: "text",
                                 value: birthday,
                                 onChange: (e)=>setBirthday(e.target.value)
@@ -26152,6 +26152,11 @@ function LogoutButton(props) {
     }));
 }
 _c = LogoutButton;
+// prop-types
+// Give informational warnings in browser if data does not match required shape
+LogoutButton.propTypes = {
+    logoutUser: _propTypesDefault.default.func.isRequired
+};
 var _c;
 $RefreshReg$(_c, "LogoutButton");
 
