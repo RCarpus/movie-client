@@ -14,3 +14,9 @@ export function LogoutButton(props) {
     <button className="logout-button" type="submit" onClick={handleLogout}>Logout</button>
   );
 }
+
+// prop-types
+// Give informational warnings in browser if data does not match required shape
+LogoutButton.propTypes = {
+  logoutUser: PropTypes.func.isRequired
+};
