@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import { Link } from "react-router-dom";
+
 
 import './movie-view.scss';
 
@@ -25,12 +27,16 @@ export class MovieView extends React.Component {
           <div className='movie-info'>
             <div className="movie-view__line">
               <span className="movie-view__line__label">Genre: </span>
-              <span className="movie-view__line__value">{movie.Genre.Name}</span>
+              <Link to={`/genres/${movie.Genre.Name}`}>
+                <span className="movie-view__line__value">{movie.Genre.Name}</span>
+              </Link>
             </div>
 
             <div className="movie-view__line">
               <span className="movie-view__line__label">Director: </span>
-              <span className="movie-view__line__value">{movie.Director.Name}</span>
+              <Link to={`/directors/${movie.Director.Name}`}>
+                <span className="movie-view__line__value">{movie.Director.Name}</span>
+              </Link>
             </div>
 
             <div className="movie-view__line description">
