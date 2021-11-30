@@ -59,7 +59,7 @@ export function RegistrationView(props) {
               </Form.Label>
             </Col>
             <Col md={fieldSize}>
-              <Form.Control className="registration-form__line__input-field" type="text" value={password1} onChange={e => setPassword1(e.target.value)} />
+              <Form.Control className="registration-form__line__input-field" type="password" value={password1} onChange={e => setPassword1(e.target.value)} />
             </Col>
           </Row>
         </Form.Group>
@@ -73,7 +73,7 @@ export function RegistrationView(props) {
               </Form.Label>
             </Col>
             <Col md={fieldSize}>
-              <Form.Control className="registration-form__line__input-field" type="text" value={password2} onChange={e => setPassword2(e.target.value)} />
+              <Form.Control className="registration-form__line__input-field" type="password" value={password2} onChange={e => setPassword2(e.target.value)} />
             </Col>
           </Row>
         </Form.Group>
