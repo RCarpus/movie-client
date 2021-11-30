@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 
 import './movie-view.scss';
 
-let imgPath = './img/';
+let imgPath = '.././img/';
 
 export class MovieView extends React.Component {
 
