@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -15,7 +16,17 @@ export function LoginView(props) {
     e.preventDefault();
     console.log(username, password);
     // Send auth request to server
-    props.onLoggedIn(username);
+    axios.post('https://rcarpus-movie-api.herokuapp.com/login', {
+      Username: username,
+      Password: password
+    })
+    .then(response => {
+      const data = response.data;
+      props.onLoggedIn(data);
+    })
+    .catch(e => {
+      console.log('no such user')
+    });
   };
 
   const handleClickRegister = (e) => {
