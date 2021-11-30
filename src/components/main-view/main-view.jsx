@@ -24,15 +24,13 @@ export default class MainView extends React.Component {
 
   // Load in movies from my database after rendering MainView
   componentDidMount() {
-    Axios.get('https://rcarpus-movie-api.herokuapp.com/movies')
-      .then(response => {
-        this.setState({
-          movies: response.data
-        });
-      })
-      .catch(error => {
-        console.log(error);
+    let accessToken = localStorage.getItem('token');
+    if (accessToken !== null) {
+      this.setState({
+        user: localStorage.getItem('user')
       });
+      this.getMovies(accessToken);
+    }
   }
 
   /* These following methods let me affect the state of this parent element from interactions within the Child component */
@@ -46,9 +44,29 @@ export default class MainView extends React.Component {
   }
 
   // Passed to LoginView
-  onLoggedIn(user) {
+  onLoggedIn(authData) {
+    console.log(authData);
     this.setState({
-      user
+      user: authData.user.Username
+    });
+
+    localStorage.setItem('token', authData.token);
+    localStorage.setItem('user', authData.user.Username);
+    this.getMovies(authData.token);
+  }
+
+  getMovies(token) {
+    Axios.get('https://rcarpus-movie-api.herokuapp.com/movies', {
+      headers: { Authorization: `Bearer ${token}`}
+    })
+    .then(response => {
+      //assign result to state
+      this.setState({
+        movies: response.data
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
     });
   }
 
