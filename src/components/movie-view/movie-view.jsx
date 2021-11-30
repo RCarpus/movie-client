@@ -2,13 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 
 import './movie-view.scss';
 
 let imgPath = './img/';
-
-// This is temporary. Remove this as soon as you add an external style sheet.
-
 
 export class MovieView extends React.Component {
 
@@ -17,17 +15,10 @@ export class MovieView extends React.Component {
     return (
       <Row className='movie-view'>
         <Col lg={8}>
-        {/* This is on top of grid */}
         <div className="movie-view__title-line">
-          {/* <Col md={4}> */}
-            <button className="movie-view-button" onClick={() => { onBackClick(null); }}>&lt;</button>
-          {/* </Col> */}
-          {/* <Col md={4}> */}
+            <Button id="back-button" onClick={() => { onBackClick(null); }}>&lt;</Button>
             <span className="movie-view__title">{movie.Title}</span>
-          {/* </Col> */}
-          {/* <Col md={4}> */}
-            <button className="movie-view-button" >&#10032;</button>
-          {/* </Col> */}
+            <Button id="favorite-button" >&#10032;</Button>
         </div>
 
 

@@ -13,11 +13,22 @@ img {
   margin: 20px auto;
 }
 
-.movie-view-button {
+#back-button {
   font-size: 30px;
   background-color: white;
+  color: black;
   border: none;
-  margin: 15px;
+  margin: 5px;
+  padding: 0 0 7px 0;
+}
+
+#favorite-button {
+  font-size: 30px;
+  background-color: white;
+  color: black;
+  border: none;
+  margin: 5px;
+  padding: 0 0 7px 0;
 }
 
 .movie-view-button:hover {
