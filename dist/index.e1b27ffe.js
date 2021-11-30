@@ -25915,7 +25915,6 @@ $parcel$ReactRefreshHelpers$4e70.prelude(module);
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-// This is temporary. Remove this as soon as you add an external style sheet.
 parcelHelpers.export(exports, "MovieView", ()=>MovieView
 );
 var _jsxRuntime = require("react/jsx-runtime");
@@ -25927,6 +25926,8 @@ var _row = require("react-bootstrap/Row");
 var _rowDefault = parcelHelpers.interopDefault(_row);
 var _col = require("react-bootstrap/Col");
 var _colDefault = parcelHelpers.interopDefault(_col);
+var _button = require("react-bootstrap/Button");
+var _buttonDefault = parcelHelpers.interopDefault(_button);
 var _movieViewScss = require("./movie-view.scss");
 let imgPath = './img/';
 class MovieView extends _reactDefault.default.Component {
@@ -25936,7 +25937,7 @@ class MovieView extends _reactDefault.default.Component {
             className: "movie-view",
             __source: {
                 fileName: "src/components/movie-view/movie-view.jsx",
-                lineNumber: 18,
+                lineNumber: 16,
                 columnNumber: 7
             },
             __self: this,
@@ -25945,7 +25946,7 @@ class MovieView extends _reactDefault.default.Component {
                     lg: 8,
                     __source: {
                         fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 19,
+                        lineNumber: 17,
                         columnNumber: 9
                     },
                     __self: this,
@@ -25954,19 +25955,19 @@ class MovieView extends _reactDefault.default.Component {
                             className: "movie-view__title-line",
                             __source: {
                                 fileName: "src/components/movie-view/movie-view.jsx",
-                                lineNumber: 21,
+                                lineNumber: 18,
                                 columnNumber: 9
                             },
                             __self: this,
                             children: [
-                                /*#__PURE__*/ _jsxRuntime.jsx("button", {
-                                    className: "movie-view-button",
+                                /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
+                                    id: "back-button",
                                     onClick: ()=>{
                                         onBackClick(null);
                                     },
                                     __source: {
                                         fileName: "src/components/movie-view/movie-view.jsx",
-                                        lineNumber: 23,
+                                        lineNumber: 19,
                                         columnNumber: 13
                                     },
                                     __self: this,
@@ -25976,17 +25977,17 @@ class MovieView extends _reactDefault.default.Component {
                                     className: "movie-view__title",
                                     __source: {
                                         fileName: "src/components/movie-view/movie-view.jsx",
-                                        lineNumber: 26,
+                                        lineNumber: 20,
                                         columnNumber: 13
                                     },
                                     __self: this,
                                     children: movie.Title
                                 }),
-                                /*#__PURE__*/ _jsxRuntime.jsx("button", {
-                                    className: "movie-view-button",
+                                /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
+                                    id: "favorite-button",
                                     __source: {
                                         fileName: "src/components/movie-view/movie-view.jsx",
-                                        lineNumber: 29,
+                                        lineNumber: 21,
                                         columnNumber: 13
                                     },
                                     __self: this,
@@ -25998,7 +25999,7 @@ class MovieView extends _reactDefault.default.Component {
                             className: "movie-info",
                             __source: {
                                 fileName: "src/components/movie-view/movie-view.jsx",
-                                lineNumber: 34,
+                                lineNumber: 25,
                                 columnNumber: 11
                             },
                             __self: this,
@@ -26007,7 +26008,7 @@ class MovieView extends _reactDefault.default.Component {
                                     className: "movie-view__line",
                                     __source: {
                                         fileName: "src/components/movie-view/movie-view.jsx",
-                                        lineNumber: 35,
+                                        lineNumber: 26,
                                         columnNumber: 13
                                     },
                                     __self: this,
@@ -26016,7 +26017,7 @@ class MovieView extends _reactDefault.default.Component {
                                             className: "movie-view__line__label",
                                             __source: {
                                                 fileName: "src/components/movie-view/movie-view.jsx",
-                                                lineNumber: 36,
+                                                lineNumber: 27,
                                                 columnNumber: 15
                                             },
                                             __self: this,
@@ -26026,7 +26027,7 @@ class MovieView extends _reactDefault.default.Component {
                                             className: "movie-view__line__value",
                                             __source: {
                                                 fileName: "src/components/movie-view/movie-view.jsx",
-                                                lineNumber: 37,
+                                                lineNumber: 28,
                                                 columnNumber: 15
                                             },
                                             __self: this,
@@ -26038,7 +26039,7 @@ class MovieView extends _reactDefault.default.Component {
                                     className: "movie-view__line",
                                     __source: {
                                         fileName: "src/components/movie-view/movie-view.jsx",
-                                        lineNumber: 40,
+                                        lineNumber: 31,
                                         columnNumber: 13
                                     },
                                     __self: this,
@@ -26047,7 +26048,7 @@ class MovieView extends _reactDefault.default.Component {
                                             className: "movie-view__line__label",
                                             __source: {
                                                 fileName: "src/components/movie-view/movie-view.jsx",
-                                                lineNumber: 41,
+                                                lineNumber: 32,
                                                 columnNumber: 15
                                             },
                                             __self: this,
@@ -26057,7 +26058,7 @@ class MovieView extends _reactDefault.default.Component {
                                             className: "movie-view__line__value",
                                             __source: {
                                                 fileName: "src/components/movie-view/movie-view.jsx",
-                                                lineNumber: 42,
+                                                lineNumber: 33,
                                                 columnNumber: 15
                                             },
                                             __self: this,
@@ -26069,7 +26070,7 @@ class MovieView extends _reactDefault.default.Component {
                                     className: "movie-view__line description",
                                     __source: {
                                         fileName: "src/components/movie-view/movie-view.jsx",
-                                        lineNumber: 45,
+                                        lineNumber: 36,
                                         columnNumber: 13
                                     },
                                     __self: this,
@@ -26078,7 +26079,7 @@ class MovieView extends _reactDefault.default.Component {
                                             className: "movie-view__line__label",
                                             __source: {
                                                 fileName: "src/components/movie-view/movie-view.jsx",
-                                                lineNumber: 46,
+                                                lineNumber: 37,
                                                 columnNumber: 15
                                             },
                                             __self: this,
@@ -26088,7 +26089,7 @@ class MovieView extends _reactDefault.default.Component {
                                             className: "movie-view__line__value",
                                             __source: {
                                                 fileName: "src/components/movie-view/movie-view.jsx",
-                                                lineNumber: 47,
+                                                lineNumber: 38,
                                                 columnNumber: 15
                                             },
                                             __self: this,
@@ -26104,7 +26105,7 @@ class MovieView extends _reactDefault.default.Component {
                     lg: 4,
                     __source: {
                         fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 52,
+                        lineNumber: 43,
                         columnNumber: 9
                     },
                     __self: this,
@@ -26112,7 +26113,7 @@ class MovieView extends _reactDefault.default.Component {
                         className: "movie-poster",
                         __source: {
                             fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 53,
+                            lineNumber: 44,
                             columnNumber: 11
                         },
                         __self: this,
@@ -26120,7 +26121,7 @@ class MovieView extends _reactDefault.default.Component {
                             src: imgPath + movie.ImagePath,
                             __source: {
                                 fileName: "src/components/movie-view/movie-view.jsx",
-                                lineNumber: 54,
+                                lineNumber: 45,
                                 columnNumber: 13
                             },
                             __self: this
@@ -26159,7 +26160,7 @@ MovieView.propTypes = {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"6Ds2u","react":"4mchR","prop-types":"2bysO","./movie-view.scss":"lHyjt","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13","react-bootstrap/Row":"eR7YE","react-bootstrap/Col":"kxhZp"}],"lHyjt":[function() {},{}],"eR7YE":[function(require,module,exports) {
+},{"react/jsx-runtime":"6Ds2u","react":"4mchR","prop-types":"2bysO","./movie-view.scss":"lHyjt","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13","react-bootstrap/Row":"eR7YE","react-bootstrap/Col":"kxhZp","react-bootstrap/Button":"64Pgd"}],"lHyjt":[function() {},{}],"eR7YE":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -27658,19 +27659,22 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _propTypes = require("prop-types");
 var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+var _button = require("react-bootstrap/Button");
+var _buttonDefault = parcelHelpers.interopDefault(_button);
 var _logoutButtonScss = require("./logout-button.scss");
 function LogoutButton(props) {
     const handleLogout = (e)=>{
         e.preventDefault();
         props.logoutUser('useless param');
     };
-    return(/*#__PURE__*/ _jsxRuntime.jsx("button", {
+    return(/*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
         className: "btn btn-link float-sm-right",
+        id: "logout-button",
         type: "button",
         onClick: handleLogout,
         __source: {
             fileName: "src/components/logout-button/logout-button.jsx",
-            lineNumber: 14,
+            lineNumber: 15,
             columnNumber: 5
         },
         __self: this,
@@ -27691,7 +27695,7 @@ $RefreshReg$(_c, "LogoutButton");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"6Ds2u","react":"4mchR","prop-types":"2bysO","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13","./logout-button.scss":"O3Frg"}],"O3Frg":[function() {},{}],"hRkrD":[function() {},{}],"gFkXb":[function(require,module,exports) {
+},{"react/jsx-runtime":"6Ds2u","react":"4mchR","prop-types":"2bysO","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9pz13","./logout-button.scss":"O3Frg","react-bootstrap/Button":"64Pgd"}],"O3Frg":[function() {},{}],"hRkrD":[function() {},{}],"gFkXb":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
