@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
 
 import './logout-button.scss';
 
@@ -11,7 +12,7 @@ export function LogoutButton(props) {
   }
 
   return (
-    <button className="btn btn-link float-sm-right" type="button" onClick={handleLogout}>Logout</button>
+    <Button className="btn btn-link float-sm-right" id="logout-button" type="button" onClick={handleLogout}>Logout</Button>
   );
 }
 
