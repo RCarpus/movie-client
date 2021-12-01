@@ -6,13 +6,13 @@ import Button from 'react-bootstrap/Button';
 import { MovieCard } from '../movie-card/movie-card';
 import { Link } from "react-router-dom";
 
-
 import './director-view.scss';
 
 export class DirectorView extends React.Component {
 
   render() {
     const { director, onBackClick, movies } = this.props;
+    // moviesByDirector is limited to 3 movies by .slice(0,3)
     let moviesByDirector = movies.filter(m => m.Director.Name === director.Name).slice(0, 3);
     return (
       <div className='director-view'>
@@ -55,5 +55,8 @@ export class DirectorView extends React.Component {
 // prop-types
 // Give informational warnings in browser if data does not match required shape
 DirectorView.propTypes = {
-
+  director: PropTypes.shape({
+    Name: PropTypes.string.isRequired,
+    Bio: PropTypes.string.isRequired
+  })
 };
