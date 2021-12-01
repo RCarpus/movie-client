@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 import './movie-card.scss';
 
-let imgPath = './img/';
+let imgPath = '../img/';
 
 
 export class MovieCard extends React.Component {
