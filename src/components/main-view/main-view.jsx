@@ -39,10 +39,8 @@ export default class MainView extends React.Component {
       this.getMovies(accessToken);
       this.getUserData(accessToken, localStorage.getItem('user'));
     }
+    console.log("main view mounted");
   }
-
-  /* These following methods let me affect the state of this parent element from interactions within the Child component */
-  /* Functions are passed as an attribute into the child component */
 
   // Passed to MovieCard
   setSelectedMovie(newSelectedMovie) {
@@ -68,7 +66,6 @@ export default class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        //assign result to state
         this.setState({
           movies: response.data
         });
@@ -125,7 +122,7 @@ export default class MainView extends React.Component {
   }
 
   render() {
-    const { movies, selectedMovie, user, registered } = this.state;
+    const { movies, user, registered } = this.state;
 
     // RegistrationView if user is not registered
     if (!registered) return <RegistrationView onRegister={(registered, username) => this.onRegister(registered, username)} />;
@@ -138,6 +135,8 @@ export default class MainView extends React.Component {
 
     return (
       <Router>
+        {/* If We get here then we are logged in and movies have loaded. */}
+        {/* LogoutButton hangs out at the top of each logged in screen */}
         <Row>
           <Col>
             <LogoutButton logoutUser={user => { this.logoutUser(user); }} />
@@ -146,11 +145,8 @@ export default class MainView extends React.Component {
 
         <Row className="main-view justify-content-md-center">
 
-          <Route exact path="/profile" render={() => {
-            return <ProfileView user={user} />
-          }} />
 
-
+          {/* This is what renders by default after logging in */}
           <Route exact path="/" render={() => {
             return movies.map(m => (
               <Col md={3} key={m._id}>
@@ -160,30 +156,39 @@ export default class MainView extends React.Component {
           }} />
           <Route path="/movies/:movieId" render={({ match }) => {
             return <Col md={8}>
-              <MovieView movie={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.back()}
-                        userData={this.state.userData} />
+              <MovieView movie={movies.find(m => m._id === match.params.movieId)}
+                onBackClick={() => history.back()}
+                userData={this.state.userData} />
             </Col>
           }} />
 
+          {/* This route is linked to from MovieCard */}
           <Route path="/directors/:name" render={({ match }) => {
             if (movies.length === 0) return <div className="main-view" />;
             return <Col md={8}>
-              <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} 
-                onBackClick={() => history.back()} 
+              <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director}
+                onBackClick={() => history.back()}
                 movies={movies} />
             </Col>
           }
           } />
 
+          {/* This route is linked to from MovieCard */}
           <Route path="/genres/:name" render={({ match }) => {
             if (movies.length === 0) return <div className="main-view" />;
             return <Col md={8}>
-              <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} 
-                        onBackClick={() => history.back()} 
-                        movies={movies} />
+              <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre}
+                onBackClick={() => history.back()}
+                movies={movies} />
             </Col>
           }
           } />
+
+          {/* This route is linked to from main movie list page, 
+              MovieView, DirectorView, and GenreView */}
+          <Route exact path="/profile" render={() => {
+            return <ProfileView user={user} movies={movies}/>
+          }} />
 
         </Row>
       </Router>
