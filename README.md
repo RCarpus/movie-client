@@ -1,5 +1,6 @@
 # movie-client
 Movie client is the client-side app to be used in conjunction with the [movie-api](https://github.com/RCarpus/movie-api).  
+The api is hosted with Heroku at [https://rcarpus-movie-api.herokuapp.com/](https://rcarpus-movie-api.herokuapp.com/)  
 ## Build Tools
 Movie client uses [Parcel](https://parceljs.org/docs/) to transpile JSX into JavaScript and SCSS into CSS, and bundle the project into as few files as possible to serve to the client. Parcel is currently set up in development mode. As such, the code is not minified.  
 To start the build tools, run the command `npx parcel src/index.html` in the powershell terminal. The project will be hosted at localhost:1234 and will have live-reload enabled.
@@ -16,3 +17,5 @@ Type checking at runtime is performed using [prop-types](https://www.npmjs.com/p
 | `<MovieView>` | This element displays details for the movie passed into the `movie` parameter. The element has a back button, which when clicked, updated the `MainView.state.selectedMovie` to `null`, triggering the rendering of the list of `<MovieCard>` elements. |
 ## Styles
 MyFlix uses [react-bootstrap](https://react-bootstrap.github.io/getting-started/introduction/) as a starting point for using consistent, quality styles.
+## Routing
+Routing is handled with [react-router-dom](https://github.com/remix-run/react-router/blob/main/docs/getting-started/tutorial.md), a client and server-side routing library for React.

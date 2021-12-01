@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -8,7 +9,7 @@ import Button from 'react-bootstrap/Button';
 import './registration-view.scss';
 
 export function RegistrationView(props) {
-  // Shorthands used with { useState } Reat Hook 
+  // Shorthands used with { useState } React Hook 
   // https://reactjs.org/docs/hooks-state.html
   const [username, setUsername] = useState('');
   const [password1, setPassword1] = useState('');
@@ -19,7 +20,23 @@ export function RegistrationView(props) {
   // Modify state of MainView to be registered and logged in with new user
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.onRegister(true, username);
+    console.log(username, password1, password2, email, birthday);
+    // Send auth request to server
+    axios.post('https://rcarpus-movie-api.herokuapp.com/users/register', {
+      Username: username,
+      Password: password1,
+      Email: email,
+      Birthday: birthday
+    })
+    .then(response => {
+      const data = response.data;
+      console.log('registered successfully');
+      console.log(data);
+      window.open('/', '_self');
+    })
+    .catch(e => {
+      console.log('something went wrong. Maybe some info was missing.')
+    });
   };
 
   let labelSize = 4;
