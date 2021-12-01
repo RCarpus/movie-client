@@ -24,11 +24,12 @@ export default class MainView extends React.Component {
       movies: [],
       selectedMovie: null,
       user: null,
+      userData: null,
       registered: true
     };
   }
 
-  // Load in movies from my database after rendering MainView
+  // Load in movies and user data from my database after rendering MainView
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
@@ -36,6 +37,7 @@ export default class MainView extends React.Component {
         user: localStorage.getItem('user')
       });
       this.getMovies(accessToken);
+      this.getUserData(accessToken, localStorage.getItem('user'));
     }
   }
 
@@ -70,6 +72,25 @@ export default class MainView extends React.Component {
         this.setState({
           movies: response.data
         });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  getUserData(token, username) {
+    Axios.get(`https://rcarpus-movie-api.herokuapp.com/users/${username}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(response => {
+        //assign result to state
+        this.setState({
+          userData: response.data
+        });
+        console.log(`This is the data we found:
+          ${Object.keys(response.data)}`);
+        console.log(`The current state is:`);
+        console.log(this.state);
       })
       .catch(function (error) {
         console.log(error);
@@ -115,43 +136,7 @@ export default class MainView extends React.Component {
     // Empty Mainview if there are no movies (or movies are still loading)
     if (movies.length === 0) return <div className="main-view"></div>;
 
-    // If we get here then user is registered and logged in
-    // Render list of MovieCard comps if no movie is selected
-    // Go to MovieView if a movie is selected
     return (
-      // <div className="main-view">
-      //   <Row>
-      //     <Col>
-      //       <LogoutButton logoutUser={user => { this.logoutUser(user); }}/>
-      //     </Col>
-      //   </Row>
-      //   {selectedMovie
-      //     ?
-      //     // <Row className="justify-content-md-center">
-      //     <Row>
-      //       <Col>
-      //         <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
-      //       </Col>
-      //     </Row>
-      //     : (
-      //       <div>
-      //         <Row className="justify-content-md-center">
-      //           <Col md={4}>
-      //             <h1 className="display-2">Movies</h1>
-      //           </Col>
-      //         </Row>
-
-      //         <Row className="justify-content-md-center">
-      //           {movies.map(movie => (
-      //             <Col md={3}>
-      //               <MovieCard key={movie._id} movie={movie} onMovieClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
-      //             </Col>
-      //           ))}
-      //         </Row>
-      //       </div>
-      //     )
-      //   }
-      // </div>
       <Router>
         <Row>
           <Col>
@@ -175,7 +160,8 @@ export default class MainView extends React.Component {
           }} />
           <Route path="/movies/:movieId" render={({ match }) => {
             return <Col md={8}>
-              <MovieView movie={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.back()} />
+              <MovieView movie={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.back()}
+                        userData={this.state.userData} />
             </Col>
           }} />
 
