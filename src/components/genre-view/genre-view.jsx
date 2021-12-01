@@ -13,6 +13,7 @@ export class GenreView extends React.Component {
 
   render() {
     const { genre, onBackClick, movies } = this.props;
+    // moviesFromGenre is limited to 3 items
     let moviesFromGenre = movies.filter(m => m.Genre.Name === genre.Name).slice(0, 3);
     return (
       <div className='genre-view'>
@@ -54,5 +55,8 @@ export class GenreView extends React.Component {
 // prop-types
 // Give informational warnings in browser if data does not match required shape
 GenreView.propTypes = {
-
+  genre: PropTypes.shape({
+    Name: PropTypes.string.isRequired,
+    Description: PropTypes.string.isRequired
+  })
 };
