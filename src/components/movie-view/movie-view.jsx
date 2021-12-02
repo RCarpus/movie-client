@@ -19,7 +19,7 @@ export class MovieView extends React.Component {
     this.state = {
       movie: props.movie,
       userData: props.userData,
-      isFavorite: null //will be updated in componentWillMount()
+      isFavorite: false //will be updated in componentWillMount()
     }
   }
 
@@ -27,22 +27,24 @@ export class MovieView extends React.Component {
   // so that the correct value is sent to favorite button
   /* BUG: main-view does not know when value has been changed, so
       until main view does a new GET this value will be wrong if you swap between movies */
-  componentWillMount() {
-    console.log(`A movie view for ${this.state.movie.Title} will be rendered.`);
-    this.setState({
-      isFavorite: this.isFavoriteMovie()
-    }, () => console.log(this.state));
-  }
+  // componentWillMount() {
+  //   console.log(`A movie view for ${this.state.movie.Title} will be rendered.`);
+  //   this.setState({
+  //     isFavorite: this.isFavoriteMovie()
+  //   }, () => console.log(this.state));
+  // }
 
-  // used by componentWillMount()
-  isFavoriteMovie() {
-    return (this.state.userData.FavoriteMovies.indexOf(this.state.movie._id) > -1);
-  }
+  // // used by componentWillMount()
+  // isFavoriteMovie() {
+  //   if (this.state.userData.FavoriteMovies) {
+  //     return (this.state.userData.FavoriteMovies.indexOf(this.state.movie._id) > -1);
+  //   }
+  // }
 
   // Removes movie from user's favorites list
   // sent as prop to FavoriteButton
   removeFromFavorites() {
-    Axios.delete(`https://rcarpus-movie-api.herokuapp.com/users/${this.state.userData.Username}/movies/${this.state.movie._id}`, {
+    Axios.delete(`https://rcarpus-movie-api.herokuapp.com/users/${localStorage.getItem('user')}/movies/${this.state.movie._id}`, {
       headers: { authorization: `Bearer ${localStorage.getItem('token')}` }
     })
     .then(response => {
@@ -60,7 +62,7 @@ export class MovieView extends React.Component {
   // Should add a movie to the user's favorites list
   // sent as prop to FavoriteButton
   addToFavorites() {
-    Axios.post(`https://rcarpus-movie-api.herokuapp.com/users/${this.state.userData.Username}/movies/${this.state.movie._id}`, {
+    Axios.post(`https://rcarpus-movie-api.herokuapp.com/users/${localStorage.getItem('user')}/movies/${this.state.movie._id}`, {
       headers: { authorization: `Bearer ${localStorage.getItem('token')}` }
     })
     .then(response => {
