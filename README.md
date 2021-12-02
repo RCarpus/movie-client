@@ -19,3 +19,8 @@ Type checking at runtime is performed using [prop-types](https://www.npmjs.com/p
 MyFlix uses [react-bootstrap](https://react-bootstrap.github.io/getting-started/introduction/) as a starting point for using consistent, quality styles.
 ## Routing
 Routing is handled with [react-router-dom](https://github.com/remix-run/react-router/blob/main/docs/getting-started/tutorial.md), a client and server-side routing library for React.
+# Known bugs
+After logging out from the profile screen and logging back in, being directed to the user profile, the placeholders for email and birthday do not populate, and the favorite movies do not populate. If you navigate back and access the profile through a movie view, the items will populate.  
+The POST request to add a favorite movie returns a 401. Don't know why.  
+The PUT request to update user data returns a 401. Don't know why.  
+The toggle favorite button WILL remove a favorite when toggled from shaded to empty. However, when clicking on the empty star, the star will shade, but will NOT add a favorite movie. See above.
