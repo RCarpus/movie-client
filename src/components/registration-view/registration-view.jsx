@@ -151,5 +151,4 @@ export class RegistrationView extends React.Component {
 // prop-types
 // Give informational warnings in browser if data does not match required shape
 RegistrationView.propTypes = {
-  onRegister: PropTypes.func.isRequired
 };
