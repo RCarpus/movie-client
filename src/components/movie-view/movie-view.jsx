@@ -58,13 +58,14 @@ export class MovieView extends React.Component {
     });
   }
 
-  /* does not work for an unknown reason */
-  // Should add a movie to the user's favorites list
+  // adds a movie to the user's favorites list
   // sent as prop to FavoriteButton
+  /* NOTE TO SELF - NEVER MAKE THIS MISTAKE EVER AGAIN
+      IF YOU DON'T NEED ANYTHING IN THE BODY, 
+      YOU STILL NEED TO SEND A BODY, EVEN IF IT'S EMPTY */
   addToFavorites() {
-    Axios.post(`https://rcarpus-movie-api.herokuapp.com/users/${localStorage.getItem('user')}/movies/${this.state.movie._id}`, {
-      headers: { authorization: `Bearer ${localStorage.getItem('token')}` }
-    })
+    let authHeader = { headers: { authorization: `Bearer ${localStorage.getItem('token')}` } };
+    Axios.post(`https://rcarpus-movie-api.herokuapp.com/users/${localStorage.getItem('user')}/movies/${this.state.movie._id}`, {}, authHeader)
     .then(response => {
       this.setState({
         userData: response.data
