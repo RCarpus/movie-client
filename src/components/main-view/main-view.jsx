@@ -30,6 +30,8 @@ export default class MainView extends React.Component {
   }
 
   // Load in movies and user data from my database after rendering MainView
+  // this triggers before actually logging in,
+  // so an additional GET is made after logging in
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
@@ -42,17 +44,8 @@ export default class MainView extends React.Component {
     console.log("main view mounted");
   }
 
-  // Passed to MovieCard
-  setSelectedMovie(newSelectedMovie) {
-    this.setState({
-      selectedMovie: newSelectedMovie
-    });
-  }
-
   // Passed to LoginView
   onLoggedIn(authData) {
-    console.log('authdata');
-    console.log(authData);
     this.setState({
       user: authData.user.Username,
       userData: authData.user
@@ -82,7 +75,6 @@ export default class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        //assign result to state
         this.setState({
           userData: response.data
         });
@@ -94,14 +86,6 @@ export default class MainView extends React.Component {
       .catch(function (error) {
         console.log(error);
       });
-  }
-
-  // Passed to RegistrationView
-  onRegister(registered, user) {
-    this.setState({
-      registered,
-      user
-    });
   }
 
   // Passed to LogoutButton
@@ -127,7 +111,7 @@ export default class MainView extends React.Component {
     const { movies, user, registered } = this.state;
 
     // RegistrationView if user is not registered
-    if (!registered) return <RegistrationView onRegister={(registered, username) => this.onRegister(registered, username)} />;
+    if (!registered) return <RegistrationView />;
 
     // LoginVIew if user is registered, but not logged in
     if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} toRegistrationView={asdf => this.toRegistrationView(asdf)} />;
