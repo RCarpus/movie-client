@@ -109,8 +109,8 @@ export default class MainView extends React.Component {
       user: false,
       selectedMovie: null
     });
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    localStorage.clear();
+    window.location.href = '/';
   }
 
   // This needs a param here even if I don't use it or else setState doesn't work
