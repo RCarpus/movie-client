@@ -72,10 +72,8 @@ export class ProfileView extends React.Component {
       console.log(updatedData);
       
       // Axios PUT
-      // throws 401 unauthorized
-      Axios.put(`https://rcarpus-movie-api.herokuapp.com/users/${this.state.username}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-      })
+      let authHeader = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      Axios.put(`https://rcarpus-movie-api.herokuapp.com/users/${this.state.username}`, updatedData, authHeader)
         .then(response => {
           this.setState({
             username: response.data.Username,
