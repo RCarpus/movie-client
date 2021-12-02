@@ -20,7 +20,6 @@ MyFlix uses [react-bootstrap](https://react-bootstrap.github.io/getting-started/
 ## Routing
 Routing is handled with [react-router-dom](https://github.com/remix-run/react-router/blob/main/docs/getting-started/tutorial.md), a client and server-side routing library for React.
 # Known bugs
-After logging out from the profile screen and logging back in, being directed to the user profile, the placeholders for email and birthday do not populate, and the favorite movies do not populate. If you navigate back and access the profile through a movie view, the items will populate.  
-The POST request to add a favorite movie returns a 401. Don't know why.  
-The PUT request to update user data returns a 401. Don't know why.  
-The toggle favorite button WILL remove a favorite when toggled from shaded to empty. However, when clicking on the empty star, the star will shade, but will NOT add a favorite movie. See above.
+After logging out from the profile screen and logging back in, being directed to the user profile, the placeholders for email and birthday do not populate, and the favorite movies do not populate. If you navigate back and access the profile through a movie view, the items will populate.  This only seems to happen with users with no birthday
+  
+The toggle favorite button generally works to remove or add a favorite when the button is toggled. HOWEVER, the app does not remember that you have toggled the button, so if you back out of the movie view and go back in, the status of the star will be whatever it was when the main-view mounted. 
