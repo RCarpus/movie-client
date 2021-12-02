@@ -51,9 +51,11 @@ export default class MainView extends React.Component {
 
   // Passed to LoginView
   onLoggedIn(authData) {
+    console.log('authdata');
     console.log(authData);
     this.setState({
-      user: authData.user.Username
+      user: authData.user.Username,
+      userData: authData.user
     });
 
     localStorage.setItem('token', authData.token);
@@ -150,7 +152,7 @@ export default class MainView extends React.Component {
           <Route exact path="/" render={() => {
             return movies.map(m => (
               <Col md={3} key={m._id}>
-                <MovieCard movie={m} />
+                <MovieCard movie={m}/>
               </Col>
             ))
           }} />
@@ -187,7 +189,7 @@ export default class MainView extends React.Component {
           {/* This route is linked to from main movie list page, 
               MovieView, DirectorView, and GenreView */}
           <Route exact path="/profile" render={() => {
-            return <ProfileView user={user} movies={movies}/>
+            return <ProfileView user={user} movies={movies} userData={this.state.userData}/>
           }} />
 
         </Row>

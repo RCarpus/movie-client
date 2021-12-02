@@ -27,19 +27,19 @@ export class MovieView extends React.Component {
   // so that the correct value is sent to favorite button
   /* BUG: main-view does not know when value has been changed, so
       until main view does a new GET this value will be wrong if you swap between movies */
-  // componentWillMount() {
-  //   console.log(`A movie view for ${this.state.movie.Title} will be rendered.`);
-  //   this.setState({
-  //     isFavorite: this.isFavoriteMovie()
-  //   }, () => console.log(this.state));
-  // }
+  componentWillMount() {
+    console.log(`A movie view for ${this.state.movie.Title} will be rendered.`);
+    this.setState({
+      isFavorite: this.isFavoriteMovie()
+    }, () => console.log(this.state));
+  }
 
-  // // used by componentWillMount()
-  // isFavoriteMovie() {
-  //   if (this.state.userData.FavoriteMovies) {
-  //     return (this.state.userData.FavoriteMovies.indexOf(this.state.movie._id) > -1);
-  //   }
-  // }
+  // used by componentWillMount()
+  isFavoriteMovie() {
+    if (this.state.userData.FavoriteMovies) {
+      return (this.state.userData.FavoriteMovies.indexOf(this.state.movie._id) > -1);
+    }
+  }
 
   // Removes movie from user's favorites list
   // sent as prop to FavoriteButton
