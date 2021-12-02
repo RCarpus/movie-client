@@ -2,7 +2,6 @@ import React from 'react';
 import Axios from 'axios';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { MovieCard } from '../movie-card/movie-card';
-import { LogoutButton } from '../logout-button/logout-button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Link } from "react-router-dom";
@@ -19,6 +18,9 @@ export class ProfileView extends React.Component {
       username: props.user,
       movies: props.movies
     };
+    this.form = React.createRef();
+    this.updateUserData = this.updateUserData.bind(this);
+    this.unregister = this.unregister.bind(this);
   }
 
   //load user data AND get a list of favorite movies
@@ -28,6 +30,9 @@ export class ProfileView extends React.Component {
     })
       .then(response => {
         this.setState({
+          username: response.data.Username,
+          email: response.data.Email,
+          birthday: response.data.Birthday.slice(0,10),
           favoriteMovies: response.data.FavoriteMovies
         }, () => {
           // callback determines the favorite movies after loading user data
@@ -50,6 +55,42 @@ export class ProfileView extends React.Component {
       this.getUser(accessToken, this.state.username);
     }
 
+  }
+
+  updateUserData() {
+    if ( this.form.current.reportValidity() ) {
+      console.log('valid form');
+      let Username = this.form.current[0].value;
+      let Password = this.form.current[1].value;
+      let Email = this.form.current[2].value;
+      let Birthday = this.form.current[3].value;
+      let updatedData = {};
+      if ( Username.length > 0 ) updatedData.Username = Username;
+      if ( Password.length > 0 ) updatedData.Password = Password;
+      if ( Email.length > 0 ) updatedData.Email = Email;
+      if ( Birthday.length > 0 ) updatedData.Birthday = Birthday;
+      console.log(updatedData);
+      
+      // Axios PUT
+      // throws 401 unauthorized
+      Axios.put(`https://rcarpus-movie-api.herokuapp.com/users/${this.state.username}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      })
+        .then(response => {
+          this.setState({
+            username: response.data.Username,
+            email: response.data.Email,
+            birthday: response.data.Birthday.slice(0,10)
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+    }
+    else {
+      console.log('invalid form');
+    }
   }
 
   // helper function for findFavorites()
@@ -93,7 +134,28 @@ export class ProfileView extends React.Component {
     });
   }
 
+  unregister() {
+    console.log('unregistering');
+    let reallyUnregister = window.confirm('Are you sure you want to delete your account? This cannot be undone.');
+    console.log(reallyUnregister);
+    if (reallyUnregister) {
+      Axios.delete(`https://rcarpus-movie-api.herokuapp.com/users/${this.state.username}`, {
+        headers: { authorization: `Bearer ${localStorage.getItem('token')}` }
+      })
+      .then(response => {
+        console.log('user deleted');
+        localStorage.clear();
+        window.location.href = '/';
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
+  }
+
+
   render() {
+    console.log(this.state);
     return (
       <div className="profile-view">
         <Row>
@@ -109,7 +171,7 @@ export class ProfileView extends React.Component {
 
         <Row>
           <Col>
-            <Form className="update-info-form">
+            <Form className="update-info-form" ref={this.form} onSubmit={e => e.preventDefault()}>
 
               <Form.Group>
                 <Row>
@@ -119,7 +181,8 @@ export class ProfileView extends React.Component {
                     </Form.Label>
                   </Col>
                   <Col>
-                    <Form.Control />
+                    <Form.Control placeholder={this.state.username}
+                                  pattern="^[a-zA-Z0-9]{5,}$"/>
                   </Col>
                 </Row>
               </Form.Group>
@@ -132,7 +195,7 @@ export class ProfileView extends React.Component {
                     </Form.Label>
                   </Col>
                   <Col>
-                    <Form.Control />
+                    <Form.Control placeholder={'new password'}/>
                   </Col>
                 </Row>
               </Form.Group>
@@ -145,7 +208,8 @@ export class ProfileView extends React.Component {
                     </Form.Label>
                   </Col>
                   <Col>
-                    <Form.Control />
+                    <Form.Control placeholder={this.state.email}
+                                  pattern=".*@.*\..*"/>
                   </Col>
                 </Row>
               </Form.Group>
@@ -158,21 +222,22 @@ export class ProfileView extends React.Component {
                     </Form.Label>
                   </Col>
                   <Col>
-                    <Form.Control />
+                    <Form.Control placeholder={this.state.birthday}
+                                  pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$"/>
                   </Col>
                 </Row>
               </Form.Group>
 
               <Row>
                 <Col>
-                  <Button className="btn btn-secondary btn-sm" variant="primary" type="submit" >Update</Button>
+                  <Button className="btn btn-secondary btn-sm" variant="primary" type="submit" onClick={this.updateUserData} >Update</Button>
                 </Col>
               </Row>
 
             </Form>
           </Col>
           <Col>
-            <Button className="btn btn-secondary btn-sm" variant="danger" type="submit" >Unregister</Button>
+            <Button className="btn btn-secondary btn-sm" variant="danger" type="submit" onClick={this.unregister}>Unregister</Button>
           </Col>
 
         </Row>
