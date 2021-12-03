@@ -21,6 +21,7 @@ export class ProfileView extends React.Component {
     this.form = React.createRef();
     this.updateUserData = this.updateUserData.bind(this);
     this.unregister = this.unregister.bind(this);
+    this.sendUpdatedUserDataToMainView = props.sendUpdatedUserDataToMainView;
   }
 
   //load user data AND get a list of favorite movies
@@ -118,6 +119,7 @@ export class ProfileView extends React.Component {
       headers: { authorization: `Bearer ${localStorage.getItem('token')}` }
     })
     .then(response => {
+      this.sendUpdatedUserDataToMainView(response.data);
       this.setState({
         favoriteMovies: response.data.FavoriteMovies
       }, () => {
