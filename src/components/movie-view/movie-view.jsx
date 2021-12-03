@@ -1,5 +1,10 @@
 import React from 'react';
 import Axios from 'axios';
+
+import { connect } from 'react-redux';
+
+import { setUserData } from '../../actions/actions';
+
 import PropTypes from 'prop-types';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -18,7 +23,7 @@ export class MovieView extends React.Component {
     super();
     this.state = {
       movie: props.movie,
-      userData: props.userData,
+      // userData: props.userData,
       isFavorite: false //will be updated in componentWillMount()
     }
     this.sendUpdatedUserDataToMainView = props.sendUpdatedUserDataToMainView;
@@ -29,7 +34,7 @@ export class MovieView extends React.Component {
   /* BUG: main-view does not know when value has been changed, so
       until main view does a new GET this value will be wrong if you swap between movies */
   componentWillMount() {
-    console.log(`A movie view for ${this.state.movie.Title} will be rendered.`);
+    // console.log(`A movie view for ${this.state.movie.Title} will be rendered.`);
     this.setState({
       isFavorite: this.isFavoriteMovie()
     }, () => console.log(this.state));
@@ -37,8 +42,15 @@ export class MovieView extends React.Component {
 
   // used by componentWillMount()
   isFavoriteMovie() {
-    if (this.state.userData.FavoriteMovies) {
-      return (this.state.userData.FavoriteMovies.indexOf(this.state.movie._id) > -1);
+    // if (this.state.userData.FavoriteMovies) {
+    //   return (this.state.userData.FavoriteMovies.indexOf(this.state.movie._id) > -1);
+    // }
+    console.log('trying to determine if favorite');
+    console.log('userData.FavoriteMovies');
+    console.log(this.props.userData.FavoriteMovies);
+    let favs = this.props.userData.FavoriteMovies;
+    if (favs) {
+      return (favs.indexOf(this.state.movie._id) > -1);
     }
   }
 
@@ -49,11 +61,12 @@ export class MovieView extends React.Component {
       headers: { authorization: `Bearer ${localStorage.getItem('token')}` }
     })
     .then(response => {
-      this.sendUpdatedUserDataToMainView(response.data);
+      this.sendUpdatedUserDataToMainView(response.data); // should be redundant
       this.setState({
-        userData: response.data,
+        // userData: response.data,
         isFavorite: false
       });
+      this.props.setUserData(response.data);
       console.log(`We deleted a movie`);
     })
     .catch(function (error) {
@@ -70,11 +83,12 @@ export class MovieView extends React.Component {
     let authHeader = { headers: { authorization: `Bearer ${localStorage.getItem('token')}` } };
     Axios.post(`https://rcarpus-movie-api.herokuapp.com/users/${localStorage.getItem('user')}/movies/${this.state.movie._id}`, {}, authHeader)
     .then(response => {
-      this.sendUpdatedUserDataToMainView(response.data);
+      this.sendUpdatedUserDataToMainView(response.data); //should be redundant
       this.setState({
-        userData: response.data,
+        // userData: response.data,
         isFavorite: true
       });
+      this.props.setUserData(response.data);
       console.log(`We added a movie`);
     })
     .catch(function (error) {
@@ -141,6 +155,12 @@ export class MovieView extends React.Component {
     );
   }
 }
+
+let mapStateToProps = state => {
+  return { userData: state.userData }
+}
+
+export default connect(mapStateToProps, {setUserData} )(MovieView);
 
 // prop-types
 // Give informational warnings in browser if data does not match required shape

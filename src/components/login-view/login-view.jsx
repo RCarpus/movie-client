@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; // possible unneeded
 import axios from 'axios';
+
+import { connect } from 'react-redux';
+
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';

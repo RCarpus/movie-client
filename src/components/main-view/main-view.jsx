@@ -6,18 +6,15 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 // #0
-import { setMovies } from '../../actions/actions';
+import { setMovies, setUserData } from '../../actions/actions';
 
-// we havent' written this one yet
+
 import MoviesList from '../movies-list/movies-list';
-
-/* I have removed MovieCard because it will be used in the MoviesList */
-// import { MovieCard } from '../movie-card/movie-card';
-import { MovieView } from '../movie-view/movie-view';
+import MovieView from '../movie-view/movie-view';
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
 import { LoginView } from '../login-view/login-view';
-import { ProfileView } from '../profile-view/profile-view';
+import ProfileView from '../profile-view/profile-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { LogoutButton } from '../logout-button/logout-button';
 import Row from 'react-bootstrap/Row';
@@ -32,7 +29,6 @@ class MainView extends React.Component {
     super();
     this.state = {
       selectedMovie: null,
-      user: null,
       userData: null,
       registered: true
     };
@@ -42,26 +38,31 @@ class MainView extends React.Component {
   // this triggers before actually logging in,
   // so an additional GET is made after logging in
   componentDidMount() {
+    if ( !this.props.userData.Username ) {
+      let user = localStorage.getItem('user');
+      let token = localStorage.getItem('token');
+      this.getUserData(token, user);
+    }
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem('user')
-      });
       this.getMovies(accessToken);
-      this.getUserData(accessToken, localStorage.getItem('user'));
+      //this.getUserData(accessToken, localStorage.getItem('user'));
     }
     console.log("main view mounted");
+    console.log(this.state);
+    console.log(this.props);
   }
 
   // Passed to LoginView
   onLoggedIn(authData) {
-    this.setState({
-      user: authData.user.Username,
-      userData: authData.user
-    });
+    // this.setState({
+    //   user: authData.user.Username,
+    //   userData: authData.user
+    // });
+    this.props.setUserData(authData.user);
 
     localStorage.setItem('token', authData.token);
-    localStorage.setItem('user', authData.user.Username);
+    localStorage.setItem('user', authData.user.Username); // may not need this at the end
     this.getMovies(authData.token);
   }
 
@@ -86,13 +87,14 @@ class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        this.setState({
-          userData: response.data
-        });
+        // this.setState({
+        //   userData: response.data
+        // });
+        this.props.setUserData(response.data);
         console.log(`This is the data we found:
           ${Object.keys(response.data)}`);
-        console.log(`The current state is:`);
-        console.log(this.state);
+        // console.log(`The current state is:`);
+        // console.log(this.state);
       })
       .catch(function (error) {
         console.log(error);
@@ -102,10 +104,11 @@ class MainView extends React.Component {
   // Passed to LogoutButton
   // LOOK FOR A WAY TO REFACTOR THIS
   logoutUser(uselessParam) {
-    this.setState({
-      user: false,
-      selectedMovie: null
-    });
+    // this.setState({
+    //   user: false,
+    //   selectedMovie: null
+    // });
+    this.props.setUserData({}); //set user data to an empty object 
     localStorage.clear();
     window.location.href = '/';
   }
@@ -119,20 +122,23 @@ class MainView extends React.Component {
   }
 
   receiveUpdatedUserDataFromMovieView(userData) {
-    this.setState({
-      userData
-    });
+    // this.setState({
+    //   userData
+    // });
+    this.props.setUserData(userData); //this should be redundant when I am done
   }
 
   render() {
-    let { movies } = this.props; // #5
+    let { movies, userData } = this.props; // #5
     const { user, registered } = this.state;
+    console.log(movies);
+    console.log(userData);
 
     // RegistrationView if user is not registered
     if (!registered) return <RegistrationView />;
 
     // LoginVIew if user is registered, but not logged in
-    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} toRegistrationView={asdf => this.toRegistrationView(asdf)} />;
+    if (!userData.Username) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} toRegistrationView={asdf => this.toRegistrationView(asdf)} />;
 
     // Empty Mainview if there are no movies (or movies are still loading)
     if (movies.length === 0) return <div className="main-view"></div>;
@@ -159,7 +165,7 @@ class MainView extends React.Component {
             return <Col md={8}>
               <MovieView movie={movies.find(m => m._id === match.params.movieId)}
                 onBackClick={() => history.back()}
-                userData={this.state.userData} 
+                // userData={this.state.userData} 
                 sendUpdatedUserDataToMainView={userData => { this.receiveUpdatedUserDataFromMovieView(userData) }}/>
             </Col>
           }} />
@@ -189,7 +195,7 @@ class MainView extends React.Component {
           {/* This route is linked to from main movie list page, 
               MovieView, DirectorView, and GenreView */}
           <Route exact path="/profile" render={() => {
-            return <ProfileView user={user} movies={movies} userData={this.state.userData}
+            return <ProfileView movies={movies} //userData={this.state.userData}
                   sendUpdatedUserDataToMainView={userData => { this.receiveUpdatedUserDataFromMovieView(userData) }}/>
           }} />
 
@@ -201,8 +207,8 @@ class MainView extends React.Component {
 
 // #7
 let mapStateToProps = state => {
-  return { movies: state.movies }
+  return { movies: state.movies, userData: state.userData }
 }
 
 // #8 
-export default connect(mapStateToProps, { setMovies } )(MainView);
+export default connect(mapStateToProps, { setMovies, setUserData } )(MainView);

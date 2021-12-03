@@ -16,7 +16,6 @@ export class RegistrationView extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // Modify state of MainView to be registered and logged in with new user
   handleSubmit() {
     // Send auth request to server
     let newUserInfo = {};

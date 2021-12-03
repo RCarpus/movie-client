@@ -1,5 +1,10 @@
 import React from 'react';
 import Axios from 'axios';
+
+import { connect } from 'react-redux';
+
+import { setUserData } from '../../actions/actions';
+
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { MovieCard } from '../movie-card/movie-card';
 import Row from 'react-bootstrap/Row';
@@ -15,8 +20,9 @@ export class ProfileView extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      username: props.user,
-      movies: props.movies
+      // username: props.user,
+      // movies: props.movies
+      favoriteMovieList: []
     };
     this.form = React.createRef();
     this.updateUserData = this.updateUserData.bind(this);
@@ -26,22 +32,22 @@ export class ProfileView extends React.Component {
 
   //load user data AND get a list of favorite movies
   getUser(token, username) {
+    console.log('about to grab user info, because we are mounting');
     Axios.get(`https://rcarpus-movie-api.herokuapp.com/users/${username}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        let birthday = response.data.Birthday ? response.data.Birthday.slice(0,10) : null;
         this.setState({
-          username: response.data.Username,
-          email: response.data.Email,
-          birthday: birthday,
-          favoriteMovies: response.data.FavoriteMovies
+          // username: response.data.Username,
+          // email: response.data.Email,
+          // birthday: birthday,
+          // favoriteMovies: response.data.FavoriteMovies
         }, () => {
           // callback determines the favorite movies after loading user data
           // and updates state again
-          this.findFavorites(this.state.movies, this.state.favoriteMovies);
+          // this.findFavorites(this.props.movies, this.props.userData.FavoriteMovies);
           this.setState({
-            favoriteMovieList: this.findFavorites(this.state.movies, this.state.favoriteMovies)
+            favoriteMovieList: this.findFavorites(this.props.movies, this.props.userData.FavoriteMovies)
           });
         });
       })
@@ -53,8 +59,9 @@ export class ProfileView extends React.Component {
   //This gets the user info before mounting the component
   componentWillMount() {
     let accessToken = localStorage.getItem('token');
+    let user = localStorage.getItem('user');
     if (accessToken !== null) {
-      this.getUser(accessToken, this.state.username);
+      this.getUser(accessToken, user);
     }
 
   }
@@ -75,15 +82,12 @@ export class ProfileView extends React.Component {
       
       // Axios PUT
       let authHeader = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
-      Axios.put(`https://rcarpus-movie-api.herokuapp.com/users/${this.state.username}`, updatedData, authHeader)
+      Axios.put(`https://rcarpus-movie-api.herokuapp.com/users/${localStorage.getItem('user')}`, updatedData, authHeader)
         .then(response => {
           window.alert('successfully updated user data');
-          let birthday = response.data.Birthday ? response.data.Birthday.slice(0,10) : null;
           this.setState({
-            username: response.data.Username,
-            email: response.data.Email,
-            birthday: birthday
           });
+          this.props.setUserData(response.data);
         })
         .catch(function (error) {
           console.log(error);
@@ -114,20 +118,20 @@ export class ProfileView extends React.Component {
   }
 
   removeFromFavorites(movie_id) {
-    console.log(`deleting: ${movie_id} for user: ${this.state.username}`);
-    Axios.delete(`https://rcarpus-movie-api.herokuapp.com/users/${this.state.username}/movies/${movie_id}`, {
+    console.log(`deleting: ${movie_id} for user: ${this.props.userData.Username}`);
+    Axios.delete(`https://rcarpus-movie-api.herokuapp.com/users/${this.props.userData.Username}/movies/${movie_id}`, {
       headers: { authorization: `Bearer ${localStorage.getItem('token')}` }
     })
     .then(response => {
-      this.sendUpdatedUserDataToMainView(response.data);
+      this.sendUpdatedUserDataToMainView(response.data); //should not be needed
       this.setState({
-        favoriteMovies: response.data.FavoriteMovies
+        // favoriteMovies: response.data.FavoriteMovies
       }, () => {
           // callback determines the favorite movies after loading user data
           // and updates state again
-        this.findFavorites(this.state.movies, this.state.favoriteMovies);
+        // this.findFavorites(this.state.movies, this.state.favoriteMovies);
         this.setState({
-          favoriteMovieList: this.findFavorites(this.state.movies, this.state.favoriteMovies)
+          favoriteMovieList: this.findFavorites(this.props.movies, this.props.userData.FavoriteMovies)
         });
       });
       console.log(`We deleted a movie`);
@@ -142,7 +146,7 @@ export class ProfileView extends React.Component {
     let reallyUnregister = window.confirm('Are you sure you want to delete your account? This cannot be undone.');
     console.log(reallyUnregister);
     if (reallyUnregister) {
-      Axios.delete(`https://rcarpus-movie-api.herokuapp.com/users/${this.state.username}`, {
+      Axios.delete(`https://rcarpus-movie-api.herokuapp.com/users/${this.props.userData.Username}`, {
         headers: { authorization: `Bearer ${localStorage.getItem('token')}` }
       })
       .then(response => {
@@ -158,6 +162,7 @@ export class ProfileView extends React.Component {
 
 
   render() {
+    const { favoriteMovieList } = this.state;
     console.log(this.state);
     return (
       <div className="profile-view">
@@ -184,7 +189,7 @@ export class ProfileView extends React.Component {
                     </Form.Label>
                   </Col>
                   <Col>
-                    <Form.Control placeholder={this.state.username}
+                    <Form.Control placeholder={this.props.userData.Username}
                                   pattern="^[a-zA-Z0-9]{5,}$"/>
                   </Col>
                 </Row>
@@ -211,7 +216,7 @@ export class ProfileView extends React.Component {
                     </Form.Label>
                   </Col>
                   <Col>
-                    <Form.Control placeholder={this.state.email}
+                    <Form.Control placeholder={this.props.userData.Email}
                                   pattern=".*@.*\..*"/>
                   </Col>
                 </Row>
@@ -225,7 +230,7 @@ export class ProfileView extends React.Component {
                     </Form.Label>
                   </Col>
                   <Col>
-                    <Form.Control placeholder={this.state.birthday ? this.state.birthday : 'yyyy-mm-dd'}
+                    <Form.Control placeholder={this.props.userData.Birthday ? this.props.userData.Birthday.slice(0,10) : 'yyyy-mm-dd'}
                                   pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$"/>
                   </Col>
                 </Row>
@@ -247,7 +252,7 @@ export class ProfileView extends React.Component {
 
         <p>My Favorite movies</p>
         <Row>
-          {this.state.favoriteMovieList && this.state.favoriteMovieList.map(m => (
+          {favoriteMovieList && favoriteMovieList.map(m => (
               <Col md={3} key={m._id}>
                 <Row>
                   <MovieCard movie={m} />
@@ -263,3 +268,10 @@ export class ProfileView extends React.Component {
     )
   }
 }
+
+
+let mapStateToProps = state => {
+  return { userData: state.userData, movies: state.movies }
+}
+
+export default connect(mapStateToProps, { setUserData } )(ProfileView);
