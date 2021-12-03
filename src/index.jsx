@@ -17,12 +17,12 @@ const store = createStore(moviesApp, devToolsEnhancer());
 class MyFlixApplication extends React.Component {
   render() {
     return (
-      <div>
+      <Provider store={store}>
         <TopBanner /> 
         <Container >  
           <MainView />
         </Container>
-    </div>
+    </Provider>
     );
   }
 }
