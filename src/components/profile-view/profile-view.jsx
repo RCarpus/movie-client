@@ -76,6 +76,7 @@ export class ProfileView extends React.Component {
       let authHeader = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       Axios.put(`https://rcarpus-movie-api.herokuapp.com/users/${this.state.username}`, updatedData, authHeader)
         .then(response => {
+          window.alert('successfully updated user data');
           let birthday = response.data.Birthday ? response.data.Birthday.slice(0,10) : null;
           this.setState({
             username: response.data.Username,
