@@ -107,6 +107,12 @@ export default class MainView extends React.Component {
     });
   }
 
+  receiveUpdatedUserDataFromMovieView(userData) {
+    this.setState({
+      userData
+    });
+  }
+
   render() {
     const { movies, user, registered } = this.state;
 
@@ -144,7 +150,8 @@ export default class MainView extends React.Component {
             return <Col md={8}>
               <MovieView movie={movies.find(m => m._id === match.params.movieId)}
                 onBackClick={() => history.back()}
-                userData={this.state.userData} />
+                userData={this.state.userData} 
+                sendUpdatedUserDataToMainView={userData => { this.receiveUpdatedUserDataFromMovieView(userData) }}/>
             </Col>
           }} />
 
@@ -173,7 +180,8 @@ export default class MainView extends React.Component {
           {/* This route is linked to from main movie list page, 
               MovieView, DirectorView, and GenreView */}
           <Route exact path="/profile" render={() => {
-            return <ProfileView user={user} movies={movies} userData={this.state.userData}/>
+            return <ProfileView user={user} movies={movies} userData={this.state.userData}
+                  sendUpdatedUserDataToMainView={userData => { this.receiveUpdatedUserDataFromMovieView(userData) }}/>
           }} />
 
         </Row>

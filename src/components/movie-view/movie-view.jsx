@@ -21,6 +21,7 @@ export class MovieView extends React.Component {
       userData: props.userData,
       isFavorite: false //will be updated in componentWillMount()
     }
+    this.sendUpdatedUserDataToMainView = props.sendUpdatedUserDataToMainView;
   }
 
   // Determine if this movie is a favorite movie before mounting
@@ -48,8 +49,10 @@ export class MovieView extends React.Component {
       headers: { authorization: `Bearer ${localStorage.getItem('token')}` }
     })
     .then(response => {
+      this.sendUpdatedUserDataToMainView(response.data);
       this.setState({
-        userData: response.data
+        userData: response.data,
+        isFavorite: false
       });
       console.log(`We deleted a movie`);
     })
@@ -67,8 +70,10 @@ export class MovieView extends React.Component {
     let authHeader = { headers: { authorization: `Bearer ${localStorage.getItem('token')}` } };
     Axios.post(`https://rcarpus-movie-api.herokuapp.com/users/${localStorage.getItem('user')}/movies/${this.state.movie._id}`, {}, authHeader)
     .then(response => {
+      this.sendUpdatedUserDataToMainView(response.data);
       this.setState({
-        userData: response.data
+        userData: response.data,
+        isFavorite: true
       });
       console.log(`We added a movie`);
     })

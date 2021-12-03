@@ -21,6 +21,7 @@ export class ProfileView extends React.Component {
     this.form = React.createRef();
     this.updateUserData = this.updateUserData.bind(this);
     this.unregister = this.unregister.bind(this);
+    this.sendUpdatedUserDataToMainView = props.sendUpdatedUserDataToMainView;
   }
 
   //load user data AND get a list of favorite movies
@@ -29,10 +30,11 @@ export class ProfileView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
+        let birthday = response.data.Birthday ? response.data.Birthday.slice(0,10) : null;
         this.setState({
           username: response.data.Username,
           email: response.data.Email,
-          birthday: response.data.Birthday.slice(0,10),
+          birthday: birthday,
           favoriteMovies: response.data.FavoriteMovies
         }, () => {
           // callback determines the favorite movies after loading user data
@@ -75,10 +77,12 @@ export class ProfileView extends React.Component {
       let authHeader = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       Axios.put(`https://rcarpus-movie-api.herokuapp.com/users/${this.state.username}`, updatedData, authHeader)
         .then(response => {
+          window.alert('successfully updated user data');
+          let birthday = response.data.Birthday ? response.data.Birthday.slice(0,10) : null;
           this.setState({
             username: response.data.Username,
             email: response.data.Email,
-            birthday: response.data.Birthday.slice(0,10)
+            birthday: birthday
           });
         })
         .catch(function (error) {
@@ -115,6 +119,7 @@ export class ProfileView extends React.Component {
       headers: { authorization: `Bearer ${localStorage.getItem('token')}` }
     })
     .then(response => {
+      this.sendUpdatedUserDataToMainView(response.data);
       this.setState({
         favoriteMovies: response.data.FavoriteMovies
       }, () => {
@@ -220,7 +225,7 @@ export class ProfileView extends React.Component {
                     </Form.Label>
                   </Col>
                   <Col>
-                    <Form.Control placeholder={this.state.birthday}
+                    <Form.Control placeholder={this.state.birthday ? this.state.birthday : 'yyyy-mm-dd'}
                                   pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$"/>
                   </Col>
                 </Row>
