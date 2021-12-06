@@ -16,7 +16,7 @@ export function setFilter(value) {
 }
 
 export function setSortBy(value) {
-  return { type: SET_SORT , value };
+  return { type: SET_SORT_BY, value };
 }
 
 export function setUserData(value) {

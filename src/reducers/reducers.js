@@ -18,7 +18,8 @@ function visibilityFilter(state = '', action) {
   }
 }
 
-function sortBy(state = 'TITLE', action) {
+// Using string rather than a bool to allow for possibility of additional filters
+function sortBy(state = 'ASC', action) {
   switch (action.type) {
     case SET_SORT_BY:
       return action.value;
