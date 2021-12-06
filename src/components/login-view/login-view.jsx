@@ -1,7 +1,5 @@
-import React, { useState } from 'react'; // possible unneeded
+import React from 'react'; 
 import axios from 'axios';
-
-import { connect } from 'react-redux';
 
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
@@ -28,8 +26,6 @@ export class LoginView extends React.Component {
         Username: this.form.current[0].value,
         Password: this.form.current[1].value
       };
-
-      // Send auth request to server
       axios.post('https://rcarpus-movie-api.herokuapp.com/login', loginCredentials)
         .then(response => {
           const data = response.data;
@@ -41,13 +37,6 @@ export class LoginView extends React.Component {
         });
     }
   };
-
-  handleClickRegister(e) {
-    e.preventDefault();
-    // LOOK FOR A WAY TO REFACTOR THIS SO THAT I DO NOT NEED THIS USELESS PARAMETER
-    this.toRegistrationView('');
-  }
-
 
   render() {
     return (
@@ -99,7 +88,7 @@ export class LoginView extends React.Component {
             <p>Don't have an account? </p>
           </Col>
           <Col>
-            <Button variant="secondary" type="submit" onClick={this.handleClickRegister}>Register</Button>
+            <Button variant="secondary" onClick={this.props.toRegistrationView}>Register</Button>
           </Col>
         </Row>
       </div>
@@ -107,8 +96,6 @@ export class LoginView extends React.Component {
   }
 }
 
-// prop-types
-// Give informational warnings in browser if data does not match required shape
 LoginView.propTypes = {
   onLoggedIn: PropTypes.func.isRequired,
   toRegistrationView: PropTypes.func.isRequired
