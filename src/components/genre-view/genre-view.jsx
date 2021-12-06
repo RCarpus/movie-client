@@ -1,15 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import { MovieCard } from '../movie-card/movie-card';
 import { Link } from "react-router-dom";
 
-
+import { MovieCard } from '../movie-card/movie-card';
 import './genre-view.scss';
 
-export class GenreView extends React.Component {
+class GenreView extends React.Component {
 
   render() {
     const { genre, onBackClick, movies } = this.props;
@@ -60,3 +60,9 @@ GenreView.propTypes = {
     Description: PropTypes.string.isRequired
   })
 };
+
+let mapStateToProps = state => {
+  return { movies: state.movies }
+}
+
+export default connect(mapStateToProps, null )(GenreView);
