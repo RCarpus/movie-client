@@ -3,12 +3,14 @@ import Axios from 'axios';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import PropTypes from 'prop-types';
+import { Link } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
 
-import { 
-        setMovies, 
-        setUserData, 
-        setIsRegistered
-      } from '../../actions/actions';
+import {
+  setMovies,
+  setUserData,
+  setIsRegistered
+} from '../../actions/actions';
 
 import MoviesList from '../movies-list/movies-list';
 import MovieView from '../movie-view/movie-view';
@@ -29,7 +31,7 @@ class MainView extends React.Component {
   // this triggers before actually logging in,
   // so an additional GET is made after logging in
   componentDidMount() {
-    if ( !this.props.userData.Username && localStorage.getItem('token') ) {
+    if (!this.props.userData.Username && localStorage.getItem('token')) {
       let user = localStorage.getItem('user');
       let token = localStorage.getItem('token');
       this.getUserData(token, user);
@@ -44,7 +46,7 @@ class MainView extends React.Component {
   onLoggedIn(authData) {
     this.props.setUserData(authData.user);
     localStorage.setItem('token', authData.token);
-    localStorage.setItem('user', authData.user.Username); 
+    localStorage.setItem('user', authData.user.Username);
     this.getMovies(authData.token);
   }
 
@@ -74,7 +76,7 @@ class MainView extends React.Component {
 
   // Passed to LogoutButton
   logoutUser() {
-    this.props.setUserData({}); 
+    this.props.setUserData({});
     localStorage.clear();
     window.location.href = '/';
   }
@@ -84,7 +86,7 @@ class MainView extends React.Component {
   }
 
   render() {
-    const { movies, userData, isRegistered } = this.props; // #5
+    const { movies, userData, isRegistered } = this.props;
 
     // RegistrationView if user is not registered
     if (!isRegistered) return <RegistrationView />;
@@ -101,6 +103,12 @@ class MainView extends React.Component {
         {/* LogoutButton hangs out at the top of each logged in screen */}
         <Row>
           <Col>
+            <Link to={'/profile'}>
+              <Button className="btn btn-secondary btn-sm genre-view__title-line__nav" type="button">Profile</Button>
+            </Link>
+          </Col>
+
+          <Col>
             <LogoutButton logoutUser={() => { this.logoutUser() }} />
           </Col>
         </Row>
@@ -111,7 +119,7 @@ class MainView extends React.Component {
           {/* This is what renders by default after logging in */}
           <Route exact path="/" render={() => {
             // #6
-            return <MoviesList movies={movies}/>
+            return <MoviesList movies={movies} />
           }} />
           <Route path="/movies/:movieId" render={({ match }) => {
             return <Col md={8}>
@@ -153,14 +161,14 @@ class MainView extends React.Component {
 }
 
 let mapStateToProps = state => {
-  return { 
-          movies: state.movies, 
-          userData: state.userData, 
-          isRegistered: state.isRegistered 
-        }
+  return {
+    movies: state.movies,
+    userData: state.userData,
+    isRegistered: state.isRegistered
+  }
 }
 
-export default connect(mapStateToProps, { setMovies, setUserData, setIsRegistered } )(MainView);
+export default connect(mapStateToProps, { setMovies, setUserData, setIsRegistered })(MainView);
 
 MainView.propTypes = {
   // All props come from store
