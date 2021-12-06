@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row';
 
 import './top-banner.scss';
 
-export function TopBanner(props) {
+export function TopBanner() {
 
   return(
     <Row className="banner">

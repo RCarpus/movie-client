@@ -1,23 +1,20 @@
 import React from 'react';
 import Axios from 'axios';
-
 import { connect } from 'react-redux';
-
 import { setUserData } from '../../actions/actions';
 
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
-import { MovieCard } from '../movie-card/movie-card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
+import { MovieCard } from '../movie-card/movie-card';
 import './profile-view.scss';
 
 export class ProfileView extends React.Component {
 
-  constructor(props) {
+  constructor() {
     super();
     this.form = React.createRef();
     this.updateUserData = this.updateUserData.bind(this);
@@ -35,9 +32,7 @@ export class ProfileView extends React.Component {
       if ( Password.length > 0 ) updatedData.Password = Password;
       if ( Email.length > 0 ) updatedData.Email = Email;
       if ( Birthday.length > 0 ) updatedData.Birthday = Birthday;
-      console.log(updatedData);
       
-      // Axios PUT
       let authHeader = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       Axios.put(`https://rcarpus-movie-api.herokuapp.com/users/${localStorage.getItem('user')}`, updatedData, authHeader)
         .then(response => {
@@ -47,7 +42,6 @@ export class ProfileView extends React.Component {
         .catch(function (error) {
           console.log(error);
         });
-
     }
     else {
       console.log('invalid form');
@@ -68,9 +62,7 @@ export class ProfileView extends React.Component {
   }
 
   unregister() {
-    console.log('unregistering');
     let reallyUnregister = window.confirm('Are you sure you want to delete your account? This cannot be undone.');
-    console.log(reallyUnregister);
     if (reallyUnregister) {
       Axios.delete(`https://rcarpus-movie-api.herokuapp.com/users/${this.props.userData.Username}`, {
         headers: { authorization: `Bearer ${localStorage.getItem('token')}` }
@@ -194,7 +186,6 @@ export class ProfileView extends React.Component {
     )
   }
 }
-
 
 let mapStateToProps = state => {
   return { userData: state.userData, movies: state.movies }

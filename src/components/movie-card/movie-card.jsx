@@ -8,12 +8,10 @@ import './movie-card.scss';
 
 let imgPath = '../img/';
 
-
 export class MovieCard extends React.Component {
   render() {
-    const { movie, onMovieClick } = this.props;
+    const { movie } = this.props;
 
-    // return <div className="movie-card" onClick={() => { onMovieClick(movie); }}>{movie.Title}</div>;
     return (
       <Card>
         <Card.Img variant="top" src={imgPath + movie.ImagePath} />

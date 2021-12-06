@@ -10,22 +10,22 @@ import './registration-view.scss';
 import { render } from 'react-dom';
 
 export class RegistrationView extends React.Component {
-  constructor(props) {
+  constructor() {
     super();
     this.form = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit() {
-    // Send auth request to server
     let newUserInfo = {};
+
+    // This only warns the user that the passwords don't match if the form is otherwise valid
     if (this.form.current.reportValidity() 
         && this.form.current[1].value !== this.form.current[2].value) {
           window.alert('passwords must match');
         }
     if (this.form.current.reportValidity() 
         && this.form.current[1].value === this.form.current[2].value) {
-      console.log('adding a new user');
       newUserInfo.Username = this.form.current[0].value;
       newUserInfo.Password = this.form.current[1].value;
       newUserInfo.Email = this.form.current[3].value;
@@ -35,18 +35,12 @@ export class RegistrationView extends React.Component {
       axios.post('https://rcarpus-movie-api.herokuapp.com/users/register', newUserInfo)
         .then(response => {
           const data = response.data;
-          console.log('registered successfully');
-          console.log(data);
           window.open('/', '_self');
         })
         .catch(e => {
           console.log('something went wrong. Maybe some info was missing.')
         });
     }
-    else {
-      console.log('failed to fill the form properly');
-    }
-
   };
 
   render() {
@@ -126,7 +120,7 @@ export class RegistrationView extends React.Component {
               <Col md={emptySize}></Col>
               <Col md={labelSize}>
                 <Form.Label className="registration-form__line-label" className="registration-form__line">
-                  Birthday <span className="registration-form__label-tips">(optional)</span>
+                  Birthday <span className="registration-form__label-tips">(optional, yyyy-mm-dd)</span>
                 </Form.Label>
               </Col>
               <Col md={fieldSize}>

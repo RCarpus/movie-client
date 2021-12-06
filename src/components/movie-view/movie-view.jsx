@@ -1,8 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
-
 import { connect } from 'react-redux';
-
 import { setUserData } from '../../actions/actions';
 
 import PropTypes from 'prop-types';
@@ -12,10 +10,9 @@ import Button from 'react-bootstrap/Button';
 import { Link } from "react-router-dom";
 import { FavoriteButton } from '../favorite-button/favorite-button';
 
-
 import './movie-view.scss';
 
-let imgPath = '.././img/';
+const imgPath = '.././img/';
 
 export class MovieView extends React.Component {
 
