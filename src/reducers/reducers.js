@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 import { 
         SET_FILTER, 
+        SET_SORT_BY,
         SET_MOVIES, 
         SET_USER_DATA, 
         SET_IS_REGISTERED
@@ -11,6 +12,15 @@ import {
 function visibilityFilter(state = '', action) {
   switch (action.type) {
     case SET_FILTER:
+      return action.value;
+    default:
+      return state;
+  }
+}
+
+function sortBy(state = 'TITLE', action) {
+  switch (action.type) {
+    case SET_SORT_BY:
       return action.value;
     default:
       return state;
@@ -46,6 +56,7 @@ function isRegistered(state = true, action) {
 
 const moviesApp = combineReducers({
   visibilityFilter,
+  sortBy,
   movies,
   userData,
   isRegistered
