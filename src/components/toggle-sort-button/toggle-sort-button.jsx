@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 
 import { setSortBy } from '../../actions/actions';
+import './toggle-sort-button.scss';
 
 function ToggleSortButton(props) {
   const { sortBy, setSortBy } = props;
@@ -23,7 +24,7 @@ function ToggleSortButton(props) {
         return;
     }
   }
-  return <Button onClick={toggleSort}>Sort</Button>;
+  return <Button id="toggle-sort-button" onClick={toggleSort}>Sort</Button>;
 }
 
 const mapStateToProps = state => {

@@ -86,7 +86,7 @@ class MainView extends React.Component {
   }
 
   render() {
-    const { movies, userData, isRegistered } = this.props;
+    const { movies, isRegistered } = this.props;
 
     // RegistrationView if user is not registered
     if (!isRegistered) return <RegistrationView />;
@@ -102,9 +102,11 @@ class MainView extends React.Component {
         {/* If We get here then we are logged in and movies have loaded. */}
         {/* LogoutButton hangs out at the top of each logged in screen */}
         <Row>
+          <Col sm={0} md={8}>
+          </Col>
           <Col>
             <Link to={'/profile'}>
-              <Button className="btn btn-secondary btn-sm genre-view__title-line__nav" type="button">Profile</Button>
+              <Button className="btn btn-secondary flat-sm-right main-view__profile-button" type="button">Profile</Button>
             </Link>
           </Col>
 
@@ -118,7 +120,6 @@ class MainView extends React.Component {
 
           {/* This is what renders by default after logging in */}
           <Route exact path="/" render={() => {
-            // #6
             return <MoviesList movies={movies} />
           }} />
           <Route path="/movies/:movieId" render={({ match }) => {

@@ -1,11 +1,14 @@
 import React from 'react';
 import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import VisibilityFilterInput from '../visibility-filter/visibility-filter';
 import { MovieCard } from '../movie-card/movie-card';
 import ToggleSortButton from '../toggle-sort-button/toggle-sort-button';
+
+import './movies-list.scss';
 
 const mapStateToProps = state => {
   const { visibilityFilter, sortBy } = state;
@@ -29,14 +32,14 @@ function MoviesList(props) {
   if (!movies) return <div className="main-view" />;
 
   return <>
-    <Col md={12} style={{ margin: '1em' }}>
-      <VisibilityFilterInput visibilityFilter={visibilityFilter} />
-    </Col>
-    <Col>
-      <ToggleSortButton />
-    </Col>
+      <Col xs={10}  md={6} >
+        <VisibilityFilterInput className="filter-line-item" visibilityFilter={visibilityFilter} />
+      </Col>
+      <Col xs={2} md={6}>
+        <ToggleSortButton  className="filter-line-item" />
+      </Col>
     {filteredMovies.map(m => (
-      <Col md={3} key={m._id}>
+      <Col md={6} lg={4} xl={3} key={m._id}>
         <MovieCard movie={m} />
       </Col>
     ))}
