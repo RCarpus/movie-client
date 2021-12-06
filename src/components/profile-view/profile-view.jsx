@@ -19,55 +19,13 @@ export class ProfileView extends React.Component {
 
   constructor(props) {
     super();
-    this.state = {
-      // username: props.user,
-      // movies: props.movies
-      favoriteMovieList: []
-    };
     this.form = React.createRef();
     this.updateUserData = this.updateUserData.bind(this);
     this.unregister = this.unregister.bind(this);
   }
 
-  //load user data AND get a list of favorite movies
-  getUser(token, username) {
-    console.log('about to grab user info, because we are mounting');
-    Axios.get(`https://rcarpus-movie-api.herokuapp.com/users/${username}`, {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-      .then(response => {
-        this.setState({
-          // username: response.data.Username,
-          // email: response.data.Email,
-          // birthday: birthday,
-          // favoriteMovies: response.data.FavoriteMovies
-        }, () => {
-          // callback determines the favorite movies after loading user data
-          // and updates state again
-          // this.findFavorites(this.props.movies, this.props.userData.FavoriteMovies);
-          this.setState({
-            favoriteMovieList: this.findFavorites(this.props.movies, this.props.userData.FavoriteMovies)
-          });
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
-
-  //This gets the user info before mounting the component
-  componentWillMount() {
-    let accessToken = localStorage.getItem('token');
-    let user = localStorage.getItem('user');
-    if (accessToken !== null) {
-      this.getUser(accessToken, user);
-    }
-
-  }
-
   updateUserData() {
     if ( this.form.current.reportValidity() ) {
-      console.log('valid form');
       let Username = this.form.current[0].value;
       let Password = this.form.current[1].value;
       let Email = this.form.current[2].value;
@@ -84,8 +42,6 @@ export class ProfileView extends React.Component {
       Axios.put(`https://rcarpus-movie-api.herokuapp.com/users/${localStorage.getItem('user')}`, updatedData, authHeader)
         .then(response => {
           window.alert('successfully updated user data');
-          this.setState({
-          });
           this.props.setUserData(response.data);
         })
         .catch(function (error) {
@@ -98,41 +54,13 @@ export class ProfileView extends React.Component {
     }
   }
 
-  // helper function for findFavorites()
-  isFavorite(movie, favoriteMovieIds) {
-    console.log(movie);
-    return (favoriteMovieIds.indexOf(movie._id) > -1) ? true : false;
-  }
-
-  // takes in a list of movie objects and a list of ids
-  // returns a list of movies matching the ids
-  findFavorites(movies, favoriteMovieIds) {
-    let favorites = [];
-    for (let i = 0; i < movies.length; i++) {
-      if (favoriteMovieIds.indexOf(movies[i]._id) > -1) {
-        favorites.push(movies[i]);
-      }
-    }
-    return favorites;
-  }
-
   removeFromFavorites(movie_id) {
     console.log(`deleting: ${movie_id} for user: ${this.props.userData.Username}`);
     Axios.delete(`https://rcarpus-movie-api.herokuapp.com/users/${this.props.userData.Username}/movies/${movie_id}`, {
       headers: { authorization: `Bearer ${localStorage.getItem('token')}` }
     })
     .then(response => {
-      this.setState({
-        // favoriteMovies: response.data.FavoriteMovies
-      }, () => {
-          // callback determines the favorite movies after loading user data
-          // and updates state again
-        // this.findFavorites(this.state.movies, this.state.favoriteMovies);
-        this.setState({
-          favoriteMovieList: this.findFavorites(this.props.movies, this.props.userData.FavoriteMovies)
-        });
-      });
-      console.log(`We deleted a movie`);
+      this.props.setUserData(response.data);
     })
     .catch(function (error) {
       console.log(error);
@@ -148,8 +76,8 @@ export class ProfileView extends React.Component {
         headers: { authorization: `Bearer ${localStorage.getItem('token')}` }
       })
       .then(response => {
-        console.log('user deleted');
         localStorage.clear();
+        this.props.setUserData({});
         window.location.href = '/';
       })
       .catch(function (error) {
@@ -158,10 +86,10 @@ export class ProfileView extends React.Component {
     }
   }
 
-
   render() {
-    const { favoriteMovieList } = this.state;
-    console.log(this.state);
+    const { movies, userData } = this.props;
+    const favoriteMovies = userData.FavoriteMovies.map((movieID) => movies.find((movie) => movie._id === movieID));
+
     return (
       <div className="profile-view">
         <Row>
@@ -250,7 +178,7 @@ export class ProfileView extends React.Component {
 
         <p>My Favorite movies</p>
         <Row>
-          {favoriteMovieList && favoriteMovieList.map(m => (
+          { favoriteMovies.map(m => (
               <Col md={3} key={m._id}>
                 <Row>
                   <MovieCard movie={m} />
