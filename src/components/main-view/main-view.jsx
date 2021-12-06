@@ -78,7 +78,7 @@ class MainView extends React.Component {
 
   // Passed to LogoutButton
   // LOOK FOR A WAY TO REFACTOR THIS
-  logoutUser(uselessParam) {
+  logoutUser() {
     this.props.setUserData({}); //set user data to an empty object 
     localStorage.clear();
     window.location.href = '/';
@@ -92,8 +92,6 @@ class MainView extends React.Component {
 
   render() {
     const { movies, userData, isRegistered } = this.props; // #5
-    console.log(movies);
-    console.log(userData);
 
     // RegistrationView if user is not registered
     if (!isRegistered) return <RegistrationView />;
@@ -110,7 +108,7 @@ class MainView extends React.Component {
         {/* LogoutButton hangs out at the top of each logged in screen */}
         <Row>
           <Col>
-            <LogoutButton logoutUser={user => { this.logoutUser(user); }} />
+            <LogoutButton logoutUser={() => { this.logoutUser() }} />
           </Col>
         </Row>
 

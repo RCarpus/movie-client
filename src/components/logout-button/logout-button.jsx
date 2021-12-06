@@ -6,9 +6,8 @@ import './logout-button.scss';
 
 export function LogoutButton(props) {
 
-  const handleLogout = (e) => {
-    e.preventDefault();
-    props.logoutUser('useless param');
+  const handleLogout = () => {
+    props.logoutUser();
   }
 
   return (

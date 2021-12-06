@@ -16,7 +16,6 @@ export class LoginView extends React.Component {
     this.form = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onLoggedIn = props.onLoggedIn;
-    this.handleClickRegister = this.handleClickRegister.bind(this);
     this.toRegistrationView = props.toRegistrationView;
   }
 
