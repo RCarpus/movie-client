@@ -4,7 +4,7 @@ import {
         SET_FILTER, 
         SET_MOVIES, 
         SET_USER_DATA, 
-        SET_GENRE 
+        SET_IS_REGISTERED
       } from '../actions/actions';
 
 // A reducer just takes a state and an action, and returns a new state
@@ -35,9 +35,9 @@ function userData(state = {}, action) {
   }
 }
 
-function setGenre(state = {}, action) {
+function isRegistered(state = true, action) {
   switch (action.type) {
-    case SET_GENRE:
+    case SET_IS_REGISTERED:
       return action.value;
     default:
       return state;
@@ -48,7 +48,7 @@ const moviesApp = combineReducers({
   visibilityFilter,
   movies,
   userData,
-  setGenre
+  isRegistered
 });
 
 /* This code does the same thing as the shorthand above */

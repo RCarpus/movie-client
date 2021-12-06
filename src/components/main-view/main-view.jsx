@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 // #0
-import { setMovies, setUserData } from '../../actions/actions';
+import { setMovies, setUserData, setIsRegistered } from '../../actions/actions';
 
 
 import MoviesList from '../movies-list/movies-list';
@@ -30,7 +30,6 @@ class MainView extends React.Component {
     this.state = {
       selectedMovie: null,
       userData: null,
-      registered: true
     };
   }
 
@@ -116,9 +115,10 @@ class MainView extends React.Component {
   // This needs a param here even if I don't use it or else setState doesn't work
   // LOOK FOR A WAY TO REFACTOR THIS
   toRegistrationView(asdf) {
-    this.setState({
-      registered: false
-    });
+    // this.setState({
+    //   registered: false
+    // });
+    this.props.setIsRegistered(false);
   }
 
   receiveUpdatedUserDataFromMovieView(userData) {
@@ -129,13 +129,12 @@ class MainView extends React.Component {
   }
 
   render() {
-    let { movies, userData } = this.props; // #5
-    const { user, registered } = this.state;
+    let { movies, userData, isRegistered } = this.props; // #5
     console.log(movies);
     console.log(userData);
 
     // RegistrationView if user is not registered
-    if (!registered) return <RegistrationView />;
+    if (!isRegistered) return <RegistrationView />;
 
     // LoginVIew if user is registered, but not logged in
     if (!userData.Username) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} toRegistrationView={asdf => this.toRegistrationView(asdf)} />;
@@ -207,8 +206,8 @@ class MainView extends React.Component {
 
 // #7
 let mapStateToProps = state => {
-  return { movies: state.movies, userData: state.userData }
+  return { movies: state.movies, userData: state.userData, isRegistered: state.isRegistered }
 }
 
 // #8 
-export default connect(mapStateToProps, { setMovies, setUserData } )(MainView);
+export default connect(mapStateToProps, { setMovies, setUserData, setIsRegistered } )(MainView);

@@ -2,7 +2,7 @@
 export const SET_MOVIES = 'SET_MOVIES';
 export const SET_FILTER = 'SET_FILTER';
 export const SET_USER_DATA = 'SET_USER_DATA';
-export const SET_GENRE = 'SET_GENRE';
+export const SET_IS_REGISTERED = 'SET_IS_REGISTERED';
 
 
 // action creators    
@@ -25,11 +25,6 @@ export function setUserData(value) {
   }
 }
 
-export function setGenre(value) {
-  return { type: SET_GENRE, value:
-    {
-      Name: value.Name,
-      Description: value.Description
-    }
-  }
+export function setIsRegistered(value) {
+  return { type: SET_IS_REGISTERED, value }
 }
