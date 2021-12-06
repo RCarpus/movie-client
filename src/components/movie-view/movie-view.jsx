@@ -42,7 +42,8 @@ export class MovieView extends React.Component {
   }
 
   isFavorite(movieIdToCheck, MovieIdList) {
-    return MovieIdList.find((id) => id === movieIdToCheck);
+    // I am not using a real bool as a workaround for PropTypes
+    return MovieIdList.find((id) => id === movieIdToCheck) ? 'yes' : '';
   }
 
   render() {
@@ -112,9 +113,8 @@ let mapStateToProps = state => {
 
 export default connect(mapStateToProps, {setUserData} )(MovieView);
 
-// prop-types
-// Give informational warnings in browser if data does not match required shape
 MovieView.propTypes = {
+  // from parent element
   movie: PropTypes.shape({
     Title: PropTypes.string.isRequired,
     Description: PropTypes.string.isRequired,
@@ -133,12 +133,32 @@ MovieView.propTypes = {
     })
   }).isRequired,
   onBackClick: PropTypes.func.isRequired,
+
+  // from store
   userData: PropTypes.shape({
     Birthday: PropTypes.string,
     Email: PropTypes.string,
-    FavoriteMovies: PropTypes.arrayOf(PropTypes.string),
-    Password: PropTypes.string,
+    FavoriteMovies: PropTypes.arrayOf(PropTypes.string).isRequired,
     Username: PropTypes.string,
-    _id: PropTypes.string
-  })
+  }).isRequired,
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      Title: PropTypes.string.isRequired,
+      Description: PropTypes.string.isRequired,
+      Featured: PropTypes.bool.isRequired,
+      ImagePath: PropTypes.string.isRequired,
+      _id: PropTypes.string.isRequired,
+      Genre: PropTypes.shape({
+        Name: PropTypes.string.isRequired,
+        Description: PropTypes.string.isRequired
+      }).isRequired,
+      Director: PropTypes.shape({
+        Name: PropTypes.string.isRequired,
+        Bio: PropTypes.string.isRequired,
+        BirthYear: PropTypes.number.isRequired,
+        DeathYear: PropTypes.number
+      })
+    })
+  ).isRequired,
+  setUserData: PropTypes.func.isRequired
 };

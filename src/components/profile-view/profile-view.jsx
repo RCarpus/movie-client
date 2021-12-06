@@ -2,6 +2,7 @@ import React from 'react';
 import Axios from 'axios';
 import { connect } from 'react-redux';
 import { setUserData } from '../../actions/actions';
+import PropTypes from 'prop-types';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -49,7 +50,6 @@ export class ProfileView extends React.Component {
   }
 
   removeFromFavorites(movie_id) {
-    console.log(`deleting: ${movie_id} for user: ${this.props.userData.Username}`);
     Axios.delete(`https://rcarpus-movie-api.herokuapp.com/users/${this.props.userData.Username}/movies/${movie_id}`, {
       headers: { authorization: `Bearer ${localStorage.getItem('token')}` }
     })
@@ -192,3 +192,32 @@ let mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, { setUserData } )(ProfileView);
+
+ProfileView.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      Title: PropTypes.string.isRequired,
+      Description: PropTypes.string.isRequired,
+      Featured: PropTypes.bool.isRequired,
+      ImagePath: PropTypes.string.isRequired,
+      _id: PropTypes.string.isRequired,
+      Genre: PropTypes.shape({
+        Name: PropTypes.string.isRequired,
+        Description: PropTypes.string.isRequired
+      }).isRequired,
+      Director: PropTypes.shape({
+        Name: PropTypes.string.isRequired,
+        Bio: PropTypes.string.isRequired,
+        BirthYear: PropTypes.number.isRequired,
+        DeathYear: PropTypes.number
+      })
+    })
+  ).isRequired,
+  userData: PropTypes.shape({
+    Birthday: PropTypes.string,
+    Email: PropTypes.string,
+    FavoriteMovies: PropTypes.arrayOf(PropTypes.string).isRequired,
+    Username: PropTypes.string,
+  }).isRequired,
+  setUserData: PropTypes.func.isRequired
+}

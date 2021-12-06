@@ -2,6 +2,7 @@ import React from 'react';
 import Axios from 'axios';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 import { 
         setMovies, 
@@ -160,3 +161,36 @@ let mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, { setMovies, setUserData, setIsRegistered } )(MainView);
+
+MainView.propTypes = {
+  // All props come from store
+  setMovies: PropTypes.func.isRequired,
+  setUserData: PropTypes.func.isRequired,
+  setIsRegistered: PropTypes.func.isRequired,
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      Title: PropTypes.string.isRequired,
+      Description: PropTypes.string.isRequired,
+      Featured: PropTypes.bool.isRequired,
+      ImagePath: PropTypes.string.isRequired,
+      _id: PropTypes.string.isRequired,
+      Genre: PropTypes.shape({
+        Name: PropTypes.string.isRequired,
+        Description: PropTypes.string.isRequired
+      }).isRequired,
+      Director: PropTypes.shape({
+        Name: PropTypes.string.isRequired,
+        Bio: PropTypes.string.isRequired,
+        BirthYear: PropTypes.number.isRequired,
+        DeathYear: PropTypes.number
+      })
+    })
+  ),
+  userData: PropTypes.shape({
+    Username: PropTypes.string,
+    Email: PropTypes.string,
+    FavoriteMovies: PropTypes.arrayOf(PropTypes.string),
+    Birthday: PropTypes.string
+  }),
+  isRegistered: PropTypes.bool.isRequired
+}

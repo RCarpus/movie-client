@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Button from 'react-bootstrap/Button';
 
@@ -7,7 +8,6 @@ import { setSortBy } from '../../actions/actions';
 
 function ToggleSortButton(props) {
   const { sortBy, setSortBy } = props;
-  console.log(props);
 
   const toggleSort = () => {
     switch (sortBy) {
@@ -26,9 +26,13 @@ function ToggleSortButton(props) {
   return <Button onClick={toggleSort}>Sort</Button>;
 }
 
-
 const mapStateToProps = state => {
   return { sortBy: state.sortBy };
 };
 
 export default connect( mapStateToProps, { setSortBy } )(ToggleSortButton);
+
+ToggleSortButton.propTypes = {
+  setSortBy: PropTypes.func.isRequired,
+  sortBy: PropTypes.string.isRequired
+}

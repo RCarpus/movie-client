@@ -55,13 +55,35 @@ class DirectorView extends React.Component {
 
 DirectorView.propTypes = {
   director: PropTypes.shape({
+    // comes from MainView
     Name: PropTypes.string.isRequired,
     Bio: PropTypes.string.isRequired
-  })
+  }),
+  onBackClick: PropTypes.func.isRequired,
+  // Comes from store
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      Title: PropTypes.string.isRequired,
+      Description: PropTypes.string.isRequired,
+      Featured: PropTypes.bool.isRequired,
+      ImagePath: PropTypes.string.isRequired,
+      _id: PropTypes.string.isRequired,
+      Genre: PropTypes.shape({
+        Name: PropTypes.string.isRequired,
+        Description: PropTypes.string.isRequired
+      }).isRequired,
+      Director: PropTypes.shape({
+        Name: PropTypes.string.isRequired,
+        Bio: PropTypes.string.isRequired,
+        BirthYear: PropTypes.number.isRequired,
+        DeathYear: PropTypes.number
+      })
+    })
+  ).isRequired
 };
 
 let mapStateToProps = state => {
   return { movies: state.movies }
 }
 
-export default connect(mapStateToProps, null )(DirectorView);
+export default connect(mapStateToProps, null)(DirectorView);

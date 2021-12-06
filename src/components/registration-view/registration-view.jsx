@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import PropTypes from 'prop-types';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -140,8 +139,3 @@ export class RegistrationView extends React.Component {
     )
   }
 }
-
-// prop-types
-// Give informational warnings in browser if data does not match required shape
-RegistrationView.propTypes = {
-};

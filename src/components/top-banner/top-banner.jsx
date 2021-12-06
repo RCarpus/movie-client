@@ -16,6 +16,5 @@ export function TopBanner() {
         </div>
       </div>
     </Row>
-    
   );
 }
