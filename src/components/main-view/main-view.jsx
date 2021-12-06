@@ -13,7 +13,7 @@ import {
 
 import MoviesList from '../movies-list/movies-list';
 import MovieView from '../movie-view/movie-view';
-import { DirectorView } from '../director-view/director-view';
+import DirectorView from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
 import { LoginView } from '../login-view/login-view';
 import ProfileView from '../profile-view/profile-view';
@@ -27,14 +27,6 @@ import './main-view.scss';
 // removed export default
 class MainView extends React.Component {
 
-  constructor() {
-    super();
-    this.state = {
-      selectedMovie: null,
-      userData: null,
-    };
-  }
-
   // Load in movies and user data from my database after rendering MainView
   // this triggers before actually logging in,
   // so an additional GET is made after logging in
@@ -47,11 +39,7 @@ class MainView extends React.Component {
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
       this.getMovies(accessToken);
-      //this.getUserData(accessToken, localStorage.getItem('user'));
     }
-    console.log("main view mounted");
-    console.log(this.state);
-    console.log(this.props);
   }
 
   // Passed to LoginView
@@ -96,14 +84,14 @@ class MainView extends React.Component {
     window.location.href = '/';
   }
 
-  // This needs a param here even if I don't use it or else setState doesn't work
+  // This needs a param here even if I don't use it or else setIsRegistered doesn't work
   // LOOK FOR A WAY TO REFACTOR THIS - can be a one-line arrow function
   toRegistrationView(asdf) {
     this.props.setIsRegistered(false);
   }
 
   render() {
-    let { movies, userData, isRegistered } = this.props; // #5
+    const { movies, userData, isRegistered } = this.props; // #5
     console.log(movies);
     console.log(userData);
 
@@ -146,8 +134,7 @@ class MainView extends React.Component {
             if (movies.length === 0) return <div className="main-view" />;
             return <Col md={8}>
               <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director}
-                onBackClick={() => history.back()}
-                movies={movies} />
+                onBackClick={() => history.back()} />
             </Col>
           }
           } />
@@ -166,7 +153,7 @@ class MainView extends React.Component {
           {/* This route is linked to from main movie list page, 
               MovieView, DirectorView, and GenreView */}
           <Route exact path="/profile" render={() => {
-            return <ProfileView movies={movies} />
+            return <ProfileView />
           }} />
 
         </Row>
