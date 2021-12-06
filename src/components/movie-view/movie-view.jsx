@@ -19,82 +19,38 @@ let imgPath = '.././img/';
 
 export class MovieView extends React.Component {
 
-  constructor(props) {
-    super();
-    this.state = {
-      movie: props.movie,
-      isFavorite: false //will be updated in componentWillMount()
-    }
-  }
-
-  // Determine if this movie is a favorite movie before mounting
-  // so that the correct value is sent to favorite button
-  /* BUG: main-view does not know when value has been changed, so
-      until main view does a new GET this value will be wrong if you swap between movies */
-  componentWillMount() {
-    // console.log(`A movie view for ${this.state.movie.Title} will be rendered.`);
-    this.setState({
-      isFavorite: this.isFavoriteMovie()
-    }, () => console.log(this.state));
-  }
-
-  // used by componentWillMount()
-  isFavoriteMovie() {
-    // if (this.state.userData.FavoriteMovies) {
-    //   return (this.state.userData.FavoriteMovies.indexOf(this.state.movie._id) > -1);
-    // }
-    console.log('trying to determine if favorite');
-    console.log('userData.FavoriteMovies');
-    console.log(this.props.userData.FavoriteMovies);
-    let favs = this.props.userData.FavoriteMovies;
-    if (favs) {
-      return (favs.indexOf(this.state.movie._id) > -1);
-    }
-  }
-
-  // Removes movie from user's favorites list
   // sent as prop to FavoriteButton
   removeFromFavorites() {
-    Axios.delete(`https://rcarpus-movie-api.herokuapp.com/users/${localStorage.getItem('user')}/movies/${this.state.movie._id}`, {
+    Axios.delete(`https://rcarpus-movie-api.herokuapp.com/users/${localStorage.getItem('user')}/movies/${this.props.movie._id}`, {
       headers: { authorization: `Bearer ${localStorage.getItem('token')}` }
     })
     .then(response => {
-      this.sendUpdatedUserDataToMainView(response.data); // should be redundant
-      this.setState({
-        // userData: response.data,
-        isFavorite: false
-      });
       this.props.setUserData(response.data);
-      console.log(`We deleted a movie`);
     })
     .catch(function (error) {
       console.log(error);
     });
   }
 
-  // adds a movie to the user's favorites list
   // sent as prop to FavoriteButton
-  /* NOTE TO SELF - NEVER MAKE THIS MISTAKE EVER AGAIN
-      IF YOU DON'T NEED ANYTHING IN THE BODY, 
-      YOU STILL NEED TO SEND A BODY, EVEN IF IT'S EMPTY */
   addToFavorites() {
     let authHeader = { headers: { authorization: `Bearer ${localStorage.getItem('token')}` } };
-    Axios.post(`https://rcarpus-movie-api.herokuapp.com/users/${localStorage.getItem('user')}/movies/${this.state.movie._id}`, {}, authHeader)
+    Axios.post(`https://rcarpus-movie-api.herokuapp.com/users/${localStorage.getItem('user')}/movies/${this.props.movie._id}`, {}, authHeader)
     .then(response => {
-      this.setState({
-        // userData: response.data,
-        isFavorite: true
-      });
       this.props.setUserData(response.data);
-      console.log(`We added a movie`);
     })
     .catch(function (error) {
       console.log(error);
     });
+  }
+
+  isFavorite(movieIdToCheck, MovieIdList) {
+    return MovieIdList.find((id) => id === movieIdToCheck);
   }
 
   render() {
-    const { movie, onBackClick } = this.props;
+    const { movie, onBackClick, userData } = this.props;
+    const isFavorite = this.isFavorite(movie._id, userData.FavoriteMovies)
     return (
       <div className='movie-view'>
         <Row>
@@ -102,7 +58,7 @@ export class MovieView extends React.Component {
             <div className="movie-view__title-line">
                 <Button id="back-button" onClick={() => { onBackClick(null); }}>&lt;</Button>
                 <span className="movie-view__title">{movie.Title}</span>
-                <FavoriteButton isFavorite={this.state.isFavorite}
+                <FavoriteButton isFavorite={isFavorite}
                                 removeFromFavorites={() => { this.removeFromFavorites(); }}
                                 addToFavorites={() => { this.addToFavorites(); }}/>
             </div>
@@ -154,7 +110,7 @@ export class MovieView extends React.Component {
 }
 
 let mapStateToProps = state => {
-  return { userData: state.userData }
+  return { userData: state.userData, movies: state.movies }
 }
 
 export default connect(mapStateToProps, {setUserData} )(MovieView);
