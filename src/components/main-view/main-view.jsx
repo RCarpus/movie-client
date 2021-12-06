@@ -1,8 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
-
 import { connect } from 'react-redux';
-
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 import { 
@@ -24,7 +22,6 @@ import Col from 'react-bootstrap/Col';
 
 import './main-view.scss';
 
-// removed export default
 class MainView extends React.Component {
 
   // Load in movies and user data from my database after rendering MainView
@@ -68,8 +65,6 @@ class MainView extends React.Component {
     })
       .then(response => {
         this.props.setUserData(response.data);
-        console.log(`This is the data we found:
-          ${Object.keys(response.data)}`);
       })
       .catch(function (error) {
         console.log(error);
@@ -77,16 +72,13 @@ class MainView extends React.Component {
   }
 
   // Passed to LogoutButton
-  // LOOK FOR A WAY TO REFACTOR THIS
   logoutUser() {
-    this.props.setUserData({}); //set user data to an empty object 
+    this.props.setUserData({}); 
     localStorage.clear();
     window.location.href = '/';
   }
 
-  // This needs a param here even if I don't use it or else setIsRegistered doesn't work
-  // LOOK FOR A WAY TO REFACTOR THIS - can be a one-line arrow function
-  toRegistrationView(asdf) {
+  toRegistrationView() {
     this.props.setIsRegistered(false);
   }
 
@@ -97,7 +89,7 @@ class MainView extends React.Component {
     if (!isRegistered) return <RegistrationView />;
 
     // LoginVIew if user is registered, but not logged in
-    if (!userData.Username) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} toRegistrationView={() => this.toRegistrationView()} />;
+    if (!localStorage.getItem('user')) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} toRegistrationView={() => this.toRegistrationView()} />;
 
     // Empty Mainview if there are no movies (or movies are still loading)
     if (movies.length === 0) return <div className="main-view"></div>;
