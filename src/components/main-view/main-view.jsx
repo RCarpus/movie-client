@@ -5,9 +5,11 @@ import { connect } from 'react-redux';
 
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
-// #0
-import { setMovies, setUserData, setIsRegistered } from '../../actions/actions';
-
+import { 
+        setMovies, 
+        setUserData, 
+        setIsRegistered
+      } from '../../actions/actions';
 
 import MoviesList from '../movies-list/movies-list';
 import MovieView from '../movie-view/movie-view';
@@ -37,7 +39,7 @@ class MainView extends React.Component {
   // this triggers before actually logging in,
   // so an additional GET is made after logging in
   componentDidMount() {
-    if ( !this.props.userData.Username ) {
+    if ( !this.props.userData.Username && localStorage.getItem('token') ) {
       let user = localStorage.getItem('user');
       let token = localStorage.getItem('token');
       this.getUserData(token, user);
@@ -54,14 +56,9 @@ class MainView extends React.Component {
 
   // Passed to LoginView
   onLoggedIn(authData) {
-    // this.setState({
-    //   user: authData.user.Username,
-    //   userData: authData.user
-    // });
     this.props.setUserData(authData.user);
-
     localStorage.setItem('token', authData.token);
-    localStorage.setItem('user', authData.user.Username); // may not need this at the end
+    localStorage.setItem('user', authData.user.Username); 
     this.getMovies(authData.token);
   }
 
@@ -70,11 +67,7 @@ class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        /* #4 */
         this.props.setMovies(response.data);
-        // this.setState({
-        //   movies: response.data
-        // });
       })
       .catch(function (error) {
         console.log(error);
@@ -86,14 +79,9 @@ class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        // this.setState({
-        //   userData: response.data
-        // });
         this.props.setUserData(response.data);
         console.log(`This is the data we found:
           ${Object.keys(response.data)}`);
-        // console.log(`The current state is:`);
-        // console.log(this.state);
       })
       .catch(function (error) {
         console.log(error);
@@ -103,29 +91,15 @@ class MainView extends React.Component {
   // Passed to LogoutButton
   // LOOK FOR A WAY TO REFACTOR THIS
   logoutUser(uselessParam) {
-    // this.setState({
-    //   user: false,
-    //   selectedMovie: null
-    // });
     this.props.setUserData({}); //set user data to an empty object 
     localStorage.clear();
     window.location.href = '/';
   }
 
   // This needs a param here even if I don't use it or else setState doesn't work
-  // LOOK FOR A WAY TO REFACTOR THIS
+  // LOOK FOR A WAY TO REFACTOR THIS - can be a one-line arrow function
   toRegistrationView(asdf) {
-    // this.setState({
-    //   registered: false
-    // });
     this.props.setIsRegistered(false);
-  }
-
-  receiveUpdatedUserDataFromMovieView(userData) {
-    // this.setState({
-    //   userData
-    // });
-    this.props.setUserData(userData); //this should be redundant when I am done
   }
 
   render() {
@@ -163,9 +137,7 @@ class MainView extends React.Component {
           <Route path="/movies/:movieId" render={({ match }) => {
             return <Col md={8}>
               <MovieView movie={movies.find(m => m._id === match.params.movieId)}
-                onBackClick={() => history.back()}
-                // userData={this.state.userData} 
-                sendUpdatedUserDataToMainView={userData => { this.receiveUpdatedUserDataFromMovieView(userData) }}/>
+                onBackClick={() => history.back()} />
             </Col>
           }} />
 
@@ -194,8 +166,7 @@ class MainView extends React.Component {
           {/* This route is linked to from main movie list page, 
               MovieView, DirectorView, and GenreView */}
           <Route exact path="/profile" render={() => {
-            return <ProfileView movies={movies} //userData={this.state.userData}
-                  sendUpdatedUserDataToMainView={userData => { this.receiveUpdatedUserDataFromMovieView(userData) }}/>
+            return <ProfileView movies={movies} />
           }} />
 
         </Row>
@@ -204,10 +175,12 @@ class MainView extends React.Component {
   }
 }
 
-// #7
 let mapStateToProps = state => {
-  return { movies: state.movies, userData: state.userData, isRegistered: state.isRegistered }
+  return { 
+          movies: state.movies, 
+          userData: state.userData, 
+          isRegistered: state.isRegistered 
+        }
 }
 
-// #8 
 export default connect(mapStateToProps, { setMovies, setUserData, setIsRegistered } )(MainView);
