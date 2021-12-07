@@ -90,8 +90,7 @@ class MainView extends React.Component {
     if (movies.length === 0) return <div className="main-view"></div>;
 
     return (
-      <Router>
-        {/* If We get here then we are logged in and movies have loaded. */}
+        // If We get here then we are logged in and movies have loaded.
 
         <Row className="main-view justify-content-md-center">
         {/* <Row className="main-view"> */}
@@ -135,7 +134,6 @@ class MainView extends React.Component {
           }} />
 
         </Row>
-      </Router>
     );
   }
 }

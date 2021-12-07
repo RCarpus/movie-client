@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Container from 'react-bootstrap/Container';
 import { createStore } from 'redux';
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { Provider } from 'react-redux';
 import moviesApp from './reducers/reducers';
 import { devToolsEnhancer } from 'redux-devtools-extension';
@@ -18,11 +19,13 @@ class MyFlixApplication extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <TopBanner />
-        <Container >  
-          <MainView />
-        </Container>
-    </Provider>
+        <Router>
+          <TopBanner />
+          <Container >
+            <MainView />
+          </Container>
+        </Router>
+      </Provider>
     );
   }
 }
