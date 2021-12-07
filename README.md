@@ -18,15 +18,10 @@ Type checking at runtime is performed using [prop-types](https://www.npmjs.com/p
 MyFlix uses [react-bootstrap](https://react-bootstrap.github.io/getting-started/introduction/), a bootstrap package geared specifically for use with React, as a starting point for using consistent, quality styles. Elements such as `<button>` and `<form>` are replaced by react-bootstrap's `<Button>` and `<Form>` elements that are designed to play nicely with React. Standard Bootstrap classes and features also apply.
 ### react-router-dom
 Routing is handled with [react-router-dom](https://github.com/remix-run/react-router/blob/main/docs/getting-started/tutorial.md), a client and server-side routing library for React.
-### Views
+### Components
 | View | Description |
 | --- | --- |
-| `<MainView>` | This is the main view that contains each other element. The main view displays a list of `<MovieCard>` elements when no movie is selected. Clicking on a movie title will update MainView.state.selectedMovie with the selected movie. This triggers the rendering of the appropriate `<MovieView>` in place of the list of list of `<MovieCard>`s. |
+| `<MainView>` | This is the main view that contains each other custom component except for the `<TopBanner>`. `<MainView>` is rendered within the `index.jsx` file and is wrapped with a bootstrap `<Container>`, a react-router-dom `<Router>`, and the React Redux `<Provider>` elements. The `<MainView>` renders an appropriate view based on the state of the application. <br><br> If no user is logged in and `state.isRegistered` is `true` (default), a `<LoginView>` is rendered. <br><br> If no user us logged in and `state.isRegistered` is `false` (triggered by a button in `<LoginView>`), the `<RegisterView>` is rendered. <br><br> If a user is logged in, the `<MainView>` will render the `<MoviesList>` at the default endpoint. <br><br> The `<MainView>` also has routing to endpoints triggering `<MovieView>`, `<DirectorView>`, `<GenreView>`, and `<ProfileView>` elements. See routing for details. |
 | `<MovieCard>` | This is a simple element displaying the title of a movie. It is passed the `onMovieClick` function from the `<MainView>` as a parameter. The `onclick` function for the rendered `<MovieCard>` updates the `MainView.state.selectedMovie` with the clicked element's movie. |
 | `<MovieView>` | This element displays details for the movie passed into the `movie` parameter. The element has a back button, which when clicked, updated the `MainView.state.selectedMovie` to `null`, triggering the rendering of the list of `<MovieCard>` elements. |
 
-
-# Known bugs
-After logging out from the profile screen and logging back in, being directed to the user profile, the placeholders for email and birthday do not populate, and the favorite movies do not populate. If you navigate back and access the profile through a movie view, the items will populate.  This only seems to happen with users with no birthday
-  
-The toggle favorite button generally works to remove or add a favorite when the button is toggled. HOWEVER, the app does not remember that you have toggled the button, so if you back out of the movie view and go back in, the status of the star will be whatever it was when the main-view mounted. 
