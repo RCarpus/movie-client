@@ -1,4 +1,11 @@
 #logout-button {
   background-color: inherit;
   border: none;
+  margin: 15px;
+}
+
+@media only screen and (max-width: 576px) {
+  #logout-button {
+    margin-right: 30px;
+  }
 }
