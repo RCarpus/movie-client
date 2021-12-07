@@ -19,16 +19,13 @@ class GenreView extends React.Component {
       <div className='genre-view'>
 
         <Row className="genre-view__title-line">
-          <Col sm={12} md={6}>
+          <Col sm={6}>
             <Button id="back-button" onClick={() => { onBackClick(null); }}>&lt;</Button>
             <span className="genre-view__title">{genre.Name}</span>
           </Col>
           <Col>
             <Link to={'/'}>
               <Button className="btn btn-secondary btn-sm genre-view__title-line__nav" type="button">All movies</Button>
-            </Link>
-            <Link to={'/profile'}>
-              <Button className="btn btn-secondary btn-sm genre-view__title-line__nav" type="button">Profile</Button>
             </Link>
           </Col>
         </Row>

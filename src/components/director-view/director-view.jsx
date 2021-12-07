@@ -19,16 +19,13 @@ class DirectorView extends React.Component {
       <div className='director-view'>
 
         <Row className="director-view__title-line">
-          <Col sm={12} md={6}>
+          <Col sm={6}>
             <Button id="back-button" onClick={() => { onBackClick(null); }}>&lt;</Button>
             <span className="director-view__title">{director.Name}</span>
           </Col>
           <Col>
             <Link to={'/'}>
               <Button className="btn btn-secondary btn-sm genre-view__title-line__nav" type="button">All movies</Button>
-            </Link>
-            <Link to={'/profile'}>
-              <Button className="btn btn-secondary btn-sm genre-view__title-line__nav" type="button">Profile</Button>
             </Link>
           </Col>
 

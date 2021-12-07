@@ -62,11 +62,6 @@ export class MovieView extends React.Component {
             </div>
           </Col>
 
-          <Col>
-            <Link to={'/profile'}>
-                <Button className="btn btn-secondary btn-sm genre-view__title-line__nav" type="button">Profile</Button>
-            </Link>
-          </Col>
         </Row>
 
         <Row>
