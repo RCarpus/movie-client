@@ -19,7 +19,6 @@ import GenreView from '../genre-view/genre-view';
 import { LoginView } from '../login-view/login-view';
 import ProfileView from '../profile-view/profile-view';
 import { RegistrationView } from '../registration-view/registration-view';
-import { LogoutButton } from '../logout-button/logout-button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
@@ -74,13 +73,6 @@ class MainView extends React.Component {
       });
   }
 
-  // Passed to LogoutButton
-  logoutUser() {
-    this.props.setUserData({});
-    localStorage.clear();
-    window.location.href = '/';
-  }
-
   toRegistrationView() {
     this.props.setIsRegistered(false);
   }
@@ -100,20 +92,6 @@ class MainView extends React.Component {
     return (
       <Router>
         {/* If We get here then we are logged in and movies have loaded. */}
-        {/* LogoutButton hangs out at the top of each logged in screen */}
-        <Row>
-          <Col sm={0} md={8}>
-          </Col>
-          <Col>
-            <Link to={'/profile'}>
-              <Button className="btn btn-secondary flat-sm-right main-view__profile-button" type="button">Profile</Button>
-            </Link>
-          </Col>
-
-          <Col>
-            <LogoutButton logoutUser={() => { this.logoutUser() }} />
-          </Col>
-        </Row>
 
         <Row className="main-view justify-content-md-center">
 
