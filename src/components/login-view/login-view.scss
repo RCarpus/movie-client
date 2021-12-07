@@ -1,0 +1,33 @@
+.login-view {
+  // display: block;
+  // width: 100%;
+  // margin: 0 auto;
+  background-color: white;
+  border: solid black 2px;
+  border-radius: 15px;
+  padding: 50px;
+}
+
+.register-row {
+  margin-top: 50px;
+}
+
+.login-view__line {
+  margin-top: 10px;
+}
+
+@media (min-width: 768px) {
+  .login-form {
+    margin-top: 100px;
+  }
+  .register-row {
+    margin-top: 100px;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .login-view {
+    padding: 5px;
+  }
+}

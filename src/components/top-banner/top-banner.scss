@@ -1,0 +1,49 @@
+.banner {
+  background-color: orange;
+  margin-top: -10px;
+  margin-bottom: 15px;
+  box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.gridbox {
+  display: grid;
+  grid-template-columns: 100px 1fr 120px 50px;
+  width: 100%;
+}
+
+#logo {
+  padding: 0px;
+  margin: 0;
+}
+
+#banner__profile-button {
+  margin-top: 20px;
+}
+
+#title {
+  width: 100%;
+  font-size: 50px;
+  padding-top: 10px;
+  text-align: center;
+  margin: 0;
+}
+
+@media only screen and (max-width: 576px) {
+  .gridbox {
+    grid-template-columns: 50px 3fr 1fr 1fr;
+  }
+
+  #title {
+    font-size: 36px;
+  }
+
+  #logo__img {
+    height: 40px;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  #title {
+    font-size: 26px;
+  }
+}
