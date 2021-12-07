@@ -3,8 +3,6 @@ import Axios from 'axios';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import PropTypes from 'prop-types';
-import { Link } from "react-router-dom";
-import Button from 'react-bootstrap/Button';
 
 import {
   setMovies,
@@ -18,7 +16,7 @@ import DirectorView from '../director-view/director-view';
 import GenreView from '../genre-view/genre-view';
 import { LoginView } from '../login-view/login-view';
 import ProfileView from '../profile-view/profile-view';
-import { RegistrationView } from '../registration-view/registration-view';
+import RegistrationView from '../registration-view/registration-view';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 

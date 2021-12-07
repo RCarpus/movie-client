@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+import { setIsRegistered } from '../../actions/actions';
+
 
 import './registration-view.scss';
-import { render } from 'react-dom';
 
 export class RegistrationView extends React.Component {
   constructor() {
@@ -19,12 +23,12 @@ export class RegistrationView extends React.Component {
     let newUserInfo = {};
 
     // This only warns the user that the passwords don't match if the form is otherwise valid
-    if (this.form.current.reportValidity() 
-        && this.form.current[1].value !== this.form.current[2].value) {
-          window.alert('passwords must match');
-        }
-    if (this.form.current.reportValidity() 
-        && this.form.current[1].value === this.form.current[2].value) {
+    if (this.form.current.reportValidity()
+      && this.form.current[1].value !== this.form.current[2].value) {
+      window.alert('passwords must match');
+    }
+    if (this.form.current.reportValidity()
+      && this.form.current[1].value === this.form.current[2].value) {
       newUserInfo.Username = this.form.current[0].value;
       newUserInfo.Password = this.form.current[1].value;
       newUserInfo.Email = this.form.current[3].value;
@@ -47,6 +51,7 @@ export class RegistrationView extends React.Component {
     let labelSize = 4;
     let fieldSize = 5;
     let emptySize = 1;
+    const { setIsRegistered } = this.props;
 
     return (
       <div className="registration-view">
@@ -129,9 +134,15 @@ export class RegistrationView extends React.Component {
           </Form.Group>
 
           <Row>
-            <Col md={labelSize + fieldSize + emptySize - 2}></Col>
+            <Col md={labelSize + fieldSize + emptySize - 2}>
+            </Col>
             <Col md={1}>
               <Button className="register-button" variant="primary" type="submit" onClick={this.handleSubmit}>Register</Button>
+            </Col>
+          </Row>
+          <Row>
+            <Col >
+              <Button id="already-registered-button" onClick={() => setIsRegistered(true)} className="btn btn-secondary">I already have an account</Button>
             </Col>
           </Row>
         </Form>
@@ -139,3 +150,9 @@ export class RegistrationView extends React.Component {
     )
   }
 }
+
+RegistrationView.propTypes = {
+  setIsRegistered: PropTypes.func.isRequired
+}
+
+export default connect(null, { setIsRegistered })(RegistrationView);
