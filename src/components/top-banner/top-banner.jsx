@@ -28,7 +28,7 @@ function TopBanner(props) {
           <p id="title">MyFlix</p>
         </div>
         <div>
-        {userData.Username && <LogoutButton logoutUser={logoutUser} />}
+          {userData.Username && <LogoutButton logoutUser={logoutUser} />}
         </div>
       </div>
     </Row>

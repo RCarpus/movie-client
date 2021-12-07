@@ -94,6 +94,7 @@ class MainView extends React.Component {
         {/* If We get here then we are logged in and movies have loaded. */}
 
         <Row className="main-view justify-content-md-center">
+        {/* <Row className="main-view"> */}
 
 
           {/* This is what renders by default after logging in */}
@@ -101,7 +102,7 @@ class MainView extends React.Component {
             return <MoviesList movies={movies} />
           }} />
           <Route path="/movies/:movieId" render={({ match }) => {
-            return <Col md={8}>
+            return <Col sm={12} lg={10} xl={9}>
               <MovieView movie={movies.find(m => m._id === match.params.movieId)}
                 onBackClick={() => history.back()} />
             </Col>
@@ -110,7 +111,7 @@ class MainView extends React.Component {
           {/* This route is linked to from MovieCard */}
           <Route path="/directors/:name" render={({ match }) => {
             if (movies.length === 0) return <div className="main-view" />;
-            return <Col md={8}>
+            return <Col sm={12} lg={10} xl={9}>
               <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director}
                 onBackClick={() => history.back()} />
             </Col>
@@ -120,7 +121,7 @@ class MainView extends React.Component {
           {/* This route is linked to from MovieCard */}
           <Route path="/genres/:name" render={({ match }) => {
             if (movies.length === 0) return <div className="main-view" />;
-            return <Col md={8}>
+            return <Col sm={12} lg={10} xl={9}>
               <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre}
                 onBackClick={() => history.back()} />
             </Col>
