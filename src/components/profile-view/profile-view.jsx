@@ -38,6 +38,7 @@ export class ProfileView extends React.Component {
       Axios.put(`https://rcarpus-movie-api.herokuapp.com/users/${localStorage.getItem('user')}`, updatedData, authHeader)
         .then(response => {
           window.alert('successfully updated user data');
+          localStorage.setItem('user', response.data.Username);
           this.props.setUserData(response.data);
         })
         .catch(function (error) {
