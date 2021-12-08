@@ -18,7 +18,6 @@
   "homepage": "https://github.com/RCarpus/movie-client#readme",
   "entry": "src/index.html",
   "dependencies": {
-    "@parcel/markdown-ansi": "^2.0.1",
     "axios": "^0.24.0",
     "chalk": "^5.0.0",
     "eslint": "^8.3.0",
