@@ -96,7 +96,7 @@ class MainView extends React.Component {
 
           {/* This is what renders by default after logging in */}
           <Route exact path="/" render={() => {
-            return <MoviesList movies={movies} />
+            return <MoviesList/>
           }} />
           <Route path="/movies/:movieId" render={({ match }) => {
             return <Col sm={12} lg={10} xl={9}>

@@ -11,8 +11,8 @@ import ToggleSortButton from '../toggle-sort-button/toggle-sort-button';
 import './movies-list.scss';
 
 const mapStateToProps = state => {
-  const { visibilityFilter, sortBy } = state;
-  return { visibilityFilter, sortBy };
+  const { movies, visibilityFilter, sortBy } = state;
+  return { movies, visibilityFilter, sortBy };
 };
 
 function MoviesList(props) {
