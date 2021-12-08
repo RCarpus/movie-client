@@ -175,12 +175,12 @@ export class ProfileView extends React.Component {
           {userData.FavoriteMovies.length === 0 && <p id="no-favorites-message">You don't have any favorites yet. Go add some movies!</p>}
           <Row className="favorite-movies__cards">
             {favoriteMovies.map(m => (
-              <Col md={4} key={m._id}>
+              <Col className="favorite-movies__col" md={4} key={m._id}>
                 <Row>
-                  <MovieCard movie={m} />
+                  <MovieCard movie={m} className="fav"/>
                 </Row>
-                <Row>
-                  <Button type="button" className="btn btn-sm btn-warning" onClick={() => this.removeFromFavorites(m._id)}>remove favorite</Button>
+                <Row className="favorite-movies__col__button-row">
+                  <Button type="button" className="btn btn-sm btn-warning favorite-movies__remove-button" onClick={() => this.removeFromFavorites(m._id)}>remove favorite</Button>
                 </Row>
               </Col>
             ))}
