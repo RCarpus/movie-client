@@ -1,5 +1,5 @@
 # MyFlix
-MyFlix is a the client-side of a full-stack CRUD app built using the MERN (Mongo, Express, React, Node) stack, and hosted with [Netlify](https://www.netlify.com/) at https://rcarpus-myflix.netlify.app/. The API, titled movie-api, is located [here](https://github.com/RCarpus/movie-api) on GitHub and is hosted by [Heroku](https://devcenter.heroku.com/) at https://rcarpus-movie-api.herokuapp.com/.  
+MyFlix is a the client-side of a full-stack CRUD app built using the MERN (Mongo, Express, React, Node) stack, and hosted with [Netlify](https://www.netlify.com/) at https://rcarpus-myflix.netlify.app/. The API, titled movie-api, is located [here](https://github.com/RCarpus/movie-api) on GitHub and is hosted by [Heroku](https://devcenter.heroku.com/) at https://rcarpus-movie-api.herokuapp.com/. Please visit the link to the API hosted with Heroku for documentation on the api endpoints used with this app.
 
 Users of the app are able to register an account, view a database of movies, view and modify a list of favorite movies, update their personal information, and delete their accounts. 
 ## Build Tools
@@ -16,9 +16,7 @@ Ajax operations are performed using [Axios](https://axios-http.com/docs/intro), 
 Type checking at runtime is performed using [prop-types](https://www.npmjs.com/package/prop-types). With prop-types, the intended types of properties passed to React components is checked against properties recieved and displays errors in the console if there are any issues, but there is no other functionality to it.
 ### react-bootstrap
 MyFlix uses [react-bootstrap](https://react-bootstrap.github.io/getting-started/introduction/), a bootstrap package geared specifically for use with React, as a starting point for using consistent, quality styles. Elements such as `<button>` and `<form>` are replaced by react-bootstrap's `<Button>` and `<Form>` elements that are designed to play nicely with React. Standard Bootstrap classes and features also apply.
-### react-router-dom
-Routing is handled with [react-router-dom](https://github.com/remix-run/react-router/blob/main/docs/getting-started/tutorial.md), a client and server-side routing library for React.
-### Components
+## Components
 | View | Description |
 | --- | --- |
 | `<MainView>` | This is the main view that contains each other custom component except for the `<TopBanner>`. `<MainView>` is rendered within the `index.jsx` file and is wrapped with a bootstrap `<Container>`, a react-router-dom `<Router>`, and the React Redux `<Provider>` elements. The `<MainView>` renders an appropriate view based on the state of the application. <br><br> If no user is logged in and `state.isRegistered` is `true` (default), a `<LoginView>` is rendered. <br><br> If no user us logged in and `state.isRegistered` is `false` (triggered by a button in `<LoginView>`), the `<RegisterView>` is rendered. <br><br> If a user is logged in, the `<MainView>` will render the `<MoviesList>` at the default endpoint. <br><br> The `<MainView>` also has routing to endpoints triggering `<MovieView>`, `<DirectorView>`, `<GenreView>`, and `<ProfileView>` elements. See routing for details. |
@@ -35,4 +33,14 @@ Routing is handled with [react-router-dom](https://github.com/remix-run/react-ro
 | `<GenreView>` | Displays information about the genre by the name in the url. This information is extracted from a movie of that genre. This view also displays a grid of `<MovieCard>` elements that have this genre. |
 | `<DirectorView>` | Displays information about the genre by the name in the url. This information is extracted from a movie of that genre. This view also displays a grid of `<MovieCard>` elements that have this director. |
 | `<ProfileView>` | Displays all user information and provides a `<Form>` for users to update their personal information. Users can update only the fields they want to change, and the client-side validation will only apply to the fields that are not blank. This view also includes a `<Button>` to unregister a user. This deletes the userData from state, clears the localStorage, and deletes the user from the server. This view also displays a grid of `<MovieCard>` elements corresponding to the user's FavoriteMovies list. Each `<MovieCard>` has an associated `<Button>` that removes the movie from the FavoritesList. |
+
+## Routing
+Routing is handled with [react-router-dom](https://github.com/remix-run/react-router/blob/main/docs/getting-started/tutorial.md), a client and server-side routing library for React.
+| Route | Rendered View |
+| --- | --- |
+| `/` | `<LoginView>` or `<RegistrationView>` or `<MoviesList>` |
+| `/movies/:movieId` | `<MovieCard>` for the movie where movie.\_id === :movieId |
+| `/directors/:directorName` | `<DirectorView>` for the director where director.Name === :directorName |
+| `/genres/:genreName` | `<GenreView>` for the genre where genre.Name === :genreName |
+| `/profile` | `<ProfileView>` for the currently logged in user |
 
