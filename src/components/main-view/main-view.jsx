@@ -56,6 +56,9 @@ class MainView extends React.Component {
       })
       .catch(function (error) {
         console.log(error);
+        console.log('logging out');
+        localStorage.clear();
+        location.reload();
       });
   }
 
