@@ -1,5 +1,7 @@
 # MyFlix
-MyFlix is a the client-side of a full-stack CRUD app built using the MERN (Mongo, Express, React, Node) stack, and hosted with [Netlify](https://www.netlify.com/) at https://rcarpus-myflix.netlify.app/. The API, titled movie-api, is located [here](https://github.com/RCarpus/movie-api) on GitHub and is hosted by [Heroku](https://devcenter.heroku.com/) at https://rcarpus-movie-api.herokuapp.com/. Please visit the link to the API hosted with Heroku for documentation on the api endpoints used with this app.
+MyFlix is a the client-side of a full-stack CRUD app built using the MERN (Mongo, Express, React, Node) stack, and hosted with [Netlify](https://www.netlify.com/) at https://rcarpus-myflix.netlify.app/. The API, titled movie-api, is located [here](https://github.com/RCarpus/movie-api) on GitHub and is hosted by [Heroku](https://devcenter.heroku.com/) at https://rcarpus-movie-api.herokuapp.com/. Please visit the link to the API hosted with Heroku for documentation on the api endpoints used with this app.  
+
+An alternative implementation of this application built using Angular is located [here](https://github.com/RCarpus/myFlix-Angular-client).
 
 Users of the app are able to register an account, view a database of movies, view and modify a list of favorite movies, update their personal information, and delete their accounts. 
 ## Build Tools
